@@ -17,7 +17,7 @@ public class AuthenticationServlet extends HttpServlet {
 			throws IOException {
 		resp.setContentType("text/plain");
 		
-		resp.sendRedirect("https://www.facebook.com/dialog/oauth?client_id=189720214400755&redirect_uri=http://apps.facebook.com/places-kervin/");
+		resp.sendRedirect("https://www.facebook.com/dialog/oauth?client_id=189720214400755&redirect_uri=http://apps.facebook.com/places-kervin/question");
 		
 	}
 
