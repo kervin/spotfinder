@@ -39,12 +39,18 @@ public class QuestionServlet extends HttpServlet {
 		FacebookUser facebookUser = new FacebookUser("tokenurl", tokenUrl);
 		DataAccess.saveUser(facebookUser);
 
-		String accessToken = Utility.getResponse(tokenUrl);
+		String accessToken = Utility.getStringResponse(tokenUrl);
 
 		String graphUrl = "https://graph.facebook.com/me?" + accessToken;
 
-		String userInformation = Utility.getResponse(graphUrl);
+		FacebookUser facebookUser1 = new FacebookUser("graphUrl", graphUrl);
+		DataAccess.saveUser(facebookUser1);
+		
+		String userInformation = Utility.getStringResponse(graphUrl);
 
+		FacebookUser facebookUser2 = new FacebookUser("userinfo", userInformation);
+		DataAccess.saveUser(facebookUser2);
+		
 		JSONObject user = null;
 
 		try {

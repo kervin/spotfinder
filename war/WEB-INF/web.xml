@@ -31,6 +31,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/helper</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>Kevina</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.KevinaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Kevina</servlet-name>
+		<url-pattern>/kevina</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 		<servlet-name>Spotfinder</servlet-name>

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpclient-cache-4.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpcore-4.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpmime-4.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpclient-4.1.1.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
