@@ -3,7 +3,6 @@ package com.kervinramen.spotfinder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
-import javax.servlet.http.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +14,8 @@ import com.kervinramen.DAL.*;
 import com.kervinramen.utilities.*;
 
 public class QuestionServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -34,7 +35,7 @@ public class QuestionServlet extends HttpServlet {
 		String tokenUrl = "https://graph.facebook.com/oauth/access_token?"
 				+ "client_id=" + app.getAppId() + "&redirect_uri="
 				+ app.getAppUrl() + "&client_secret=" + app.getAppSecret()
-				+ "&type=" + "client_cred" + "&code=" + code;
+				+ "&code=" + code;
 
 		FacebookUser facebookUser = new FacebookUser("tokenurl", tokenUrl);
 		DataAccess.saveUser(facebookUser);
@@ -45,12 +46,13 @@ public class QuestionServlet extends HttpServlet {
 
 		FacebookUser facebookUser1 = new FacebookUser("graphUrl", graphUrl);
 		DataAccess.saveUser(facebookUser1);
-		
+
 		String userInformation = Utility.getStringResponse(graphUrl);
 
-		FacebookUser facebookUser2 = new FacebookUser("userinfo", userInformation);
-		DataAccess.saveUser(facebookUser2);
-		
+		//FacebookUser facebookUser2 = new FacebookUser("userinfo",
+		//		userInformation);
+		//DataAccess.saveUser(facebookUser2);
+
 		JSONObject user = null;
 
 		try {

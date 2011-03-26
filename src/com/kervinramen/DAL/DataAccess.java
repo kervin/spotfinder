@@ -1,8 +1,6 @@
 package com.kervinramen.DAL;
 
 import javax.jdo.PersistenceManager;
-
-import com.kervinramen.*;
 import com.kervinramen.entities.FacebookUser;
 
 public class DataAccess {

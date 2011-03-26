@@ -20,6 +20,14 @@ public class FacebookUser {
 	@Persistent
 	private String accessToken;
 
+	public void setId(Key id) {
+		this.id = id;
+	}
+
+	public Key getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -44,4 +52,5 @@ public class FacebookUser {
 		this.name = name;
 		this.accessToken = accessToken;
 	}
+
 }

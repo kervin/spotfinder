@@ -5,7 +5,7 @@ public class App {
 	private String appId = "189720214400755";
 	private String appKey = "e14a34fa3bf641ea83d9b118b0b0a604";
 	private String appSecret = "1cac42f937ba7b9998e195ef416d0f79";
-	private String appUrl = "http://myspotfinder.appspot.com/question";
+	private String appUrl = "http://apps.facebook.com/places-kervin/question";
 	
 	public String getAppId() {
 		return this.appId;
@@ -17,6 +17,10 @@ public class App {
 	
 	public String getAppUrl() {
 		return this.appUrl;
+	}
+	
+	public String getAppKey() {
+		return this.appKey;
 	}
 	
 	public String getDialogUrl() {
