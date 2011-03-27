@@ -6,12 +6,22 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.util.logging.Logger;
 import java.io.StringWriter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.mortbay.log.Log;
+
+import sun.util.logging.resources.logging;
+
+import com.google.appengine.repackaged.org.json.JSONException;
+import com.google.appengine.repackaged.org.json.JSONObject;
+
+// TODO: make utility singleton and implement logging facilities
 public class Utility {
 
+	
 	public static String convertStreamToString(InputStream is) throws IOException {
 		/*
 		 * To convert the InputStream to String we use the Reader.read(char[]
@@ -50,6 +60,26 @@ public class Utility {
 		return new String(theChars);
 	}
 
+	
+	/**
+	 * Converts a String to a JSONObject
+	 * @param value
+	 * @return
+	 */
+	public static JSONObject getJSON(String value) {
+
+		JSONObject user = new JSONObject();
+
+		try {
+			user = new JSONObject(value);
+		} catch (JSONException e) {
+			// log error
+		}
+
+		return user;
+	}
+
+	
 	/**
 	 * Sends a GET Request
 	 * 
