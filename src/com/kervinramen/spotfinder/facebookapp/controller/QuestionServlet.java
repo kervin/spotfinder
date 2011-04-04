@@ -34,12 +34,16 @@ public class QuestionServlet extends HttpServlet {
 		JSONObject userInfo = app.getBasicGraph();
 		
 		FacebookUser user = new FacebookUser();
+		user.setAccessToken(app.getAccessToken());
+		user.setUserId(userInfo.optString("id"));
 		user.setUsername(userInfo.optString("username"));
-		user.setBasicGraph(userInfo);
+		user.setInfoGraph(userInfo);
+		user.setFeedGraph(app.getFeedGraph());
+		user.setHomeFeedGraph(app.getHomeGraph());
 		
 		user.save();
 		
-		resp.getWriter().println("Hello there, " + user);
+		resp.getWriter().println("Hello there, " + user.getUsername());
 
 	}
 

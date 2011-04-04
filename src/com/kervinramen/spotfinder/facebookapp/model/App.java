@@ -21,7 +21,7 @@ public class App {
 	private String appUrl = "http://apps.facebook.com/places-kervin/question";
 	private String accessToken;
 	private String code;
-	
+
 	public String getAppId() {
 		return this.appId;
 	}
@@ -40,15 +40,16 @@ public class App {
 
 	/**
 	 * App needs a code to work.
-	 * @param code Posted by Facebook
+	 * 
+	 * @param code
+	 *            Posted by Facebook
 	 */
 	public App(String code) {
 		this.code = code;
 	}
-	
 
-	// Methods 
-	
+	// Methods
+
 	/**
 	 * Returns the authentication dialog
 	 * 
@@ -56,7 +57,7 @@ public class App {
 	 */
 	public String getDialogUrl() {
 		String dialogUrl = "http://www.facebook.com/dialog/oauth?"
-				+ "client_id=" + this.appId + "&redirect_uri=" + this.appUrl;
+				+ "client_id=" + this.appId + "&redirect_uri=" + this.getAppUrl();
 
 		return dialogUrl;
 	}
@@ -69,12 +70,19 @@ public class App {
 	 *            Posted by Facebook on our application for use
 	 * @return
 	 */
-	private String getAccessToken() {
+	private String queryAccessToken() {
 		String tokenUrl = "https://graph.facebook.com/oauth/access_token?"
-				+ "client_id=" + this.getAppId() + "&redirect_uri="
-				+ this.getAppUrl() + "&client_secret=" + this.getAppSecret()
-				+ "&code=" + this.code;
+				+ "client_id=" + this.getAppId() 
+				+ "&redirect_uri=" + this.getAppUrl() 
+				+ "&client_secret=" + this.getAppSecret()
+				+ "&code=" + this.code 
+				+ "&scope=read_stream,user_photo_video_tags";
+
 		this.accessToken = HttpHelper.getStringResponse(tokenUrl);
+		return this.accessToken;
+	}
+
+	public String getAccessToken() {
 		return this.accessToken;
 	}
 
@@ -87,9 +95,29 @@ public class App {
 	 */
 	public JSONObject getBasicGraph() {
 		// Gets the access Token
-		String accessToken = this.getAccessToken();
+		String accessToken = this.queryAccessToken();
 
 		String graphUrl = "https://graph.facebook.com/me?" + accessToken;
+		String userInformation = HttpHelper.getStringResponse(graphUrl);
+
+		return StringHelper.getJSON(userInformation);
+	}
+
+	public JSONObject getFeedGraph() {
+		// Gets the access Token
+		String accessToken = this.queryAccessToken();
+
+		String graphUrl = "https://graph.facebook.com/me/feed?" + accessToken;
+		String userInformation = HttpHelper.getStringResponse(graphUrl);
+
+		return StringHelper.getJSON(userInformation);
+	}
+
+	public JSONObject getHomeGraph() {
+		// Gets the access Token
+		String accessToken = this.queryAccessToken();
+
+		String graphUrl = "https://graph.facebook.com/me/home?" + accessToken;
 		String userInformation = HttpHelper.getStringResponse(graphUrl);
 
 		return StringHelper.getJSON(userInformation);
