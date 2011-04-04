@@ -1,7 +1,8 @@
-package com.kervinramen.entities;
+package com.kervinramen.spotfinder.facebookapp.model;
 
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.kervinramen.utilities.Utility;
+import com.kervinramen.spotfinder.helpers.HttpHelper;
+import com.kervinramen.spotfinder.helpers.StringHelper;
 
 /**
  * This class caters for interaction with facebook It contains all the
@@ -73,7 +74,7 @@ public class App {
 				+ "client_id=" + this.getAppId() + "&redirect_uri="
 				+ this.getAppUrl() + "&client_secret=" + this.getAppSecret()
 				+ "&code=" + this.code;
-		this.accessToken = Utility.getStringResponse(tokenUrl);
+		this.accessToken = HttpHelper.getStringResponse(tokenUrl);
 		return this.accessToken;
 	}
 
@@ -89,9 +90,9 @@ public class App {
 		String accessToken = this.getAccessToken();
 
 		String graphUrl = "https://graph.facebook.com/me?" + accessToken;
-		String userInformation = Utility.getStringResponse(graphUrl);
+		String userInformation = HttpHelper.getStringResponse(graphUrl);
 
-		return Utility.getJSON(userInformation);
+		return StringHelper.getJSON(userInformation);
 	}
 
 }

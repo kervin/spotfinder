@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder;
+package com.kervinramen.spotfinder.facebookapp.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.kervinramen.DAL.DataAccess;
-import com.kervinramen.entities.*;
+import com.kervinramen.spotfinder.facebookapp.model.App;
+import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 
 public class QuestionServlet extends HttpServlet {
 
@@ -37,7 +37,7 @@ public class QuestionServlet extends HttpServlet {
 		user.setUsername(userInfo.optString("username"));
 		user.setBasicGraph(userInfo);
 		
-		DataAccess.saveUser(user);
+		user.save();
 		
 		resp.getWriter().println("Hello there, " + user);
 
