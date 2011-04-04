@@ -1,1 +1,7 @@
-This is a readme file.
+Spotfinder is an application that uses Facebook information in order 
+to predict user preferences.
+
+A Facebook application is created to get information and rating of 
+users and a finder program that uses an innovative comparing algorithm 
+to deduce taste.  Then places of interests can be proposed based on 
+best friends' rating.
