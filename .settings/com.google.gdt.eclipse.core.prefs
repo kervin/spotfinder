@@ -1,5 +1,5 @@
-#Tue Mar 22 23:22:54 MUT 2011
+#Sun Apr 17 12:36:58 MUT 2011
 eclipse.preferences.version=1
-jarsExcludedFromWebInfLib=
+jarsExcludedFromWebInfLib=/media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/appengine-api.jar|/media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/appengine-remote-api.jar
 warSrcDir=war
 warSrcDirIsOutput=true

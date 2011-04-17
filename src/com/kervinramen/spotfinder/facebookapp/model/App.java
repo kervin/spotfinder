@@ -23,6 +23,10 @@ public class App
 	private String accessToken;
 	private String code;
 
+	public String getAppKey() 
+	{
+		return this.appKey;
+	}
 	/**
 	 * App needs a code to work.
 	 * 

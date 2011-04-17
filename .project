@@ -30,4 +30,10 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.google.appengine.eclipse.core.gaeNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>SDK_ROOT</name>
+			<value>file:/media/files/Kervin/app-engine/appengine-java-sdk-1.4.3</value>
+		</variable>
+	</variableList>
 </projectDescription>
