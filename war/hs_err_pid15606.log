@@ -1,0 +1,506 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (constantPoolOop.cpp:76), pid=15606, tid=140662153275136
+#  guarantee(error != (symbolOop)NULL) failed: tag mismatch with resolution error table
+#
+# JRE version: 6.0_20-b20
+# Java VM: OpenJDK 64-Bit Server VM (19.0-b09 mixed mode linux-amd64 compressed oops)
+# Derivative: IcedTea6 1.9.7
+# Distribution: Ubuntu 10.10, package 6b20-1.9.7-0ubuntu1
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fee681d1800):  JavaThread "13817227@qtp-291172425-0" [_thread_in_vm, id=15633, stack(0x00007fee759de000,0x00007fee75adf000)]
+
+Stack: [0x00007fee759de000,0x00007fee75adf000],  sp=0x00007fee75adc0f0,  free space=1016k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x722a2c]
+V  [libjvm.so+0x722c4b]
+V  [libjvm.so+0x32f886]
+V  [libjvm.so+0x32b5bb]
+V  [libjvm.so+0x42776f]
+j  com.kervinramen.spotfinder.servlets.HelperServlet.doGet(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+225
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+35
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+30
+j  org.mortbay.jetty.servlet.ServletHolder.handle(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+179
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+103
+j  com.google.appengine.api.blobstore.dev.ServeBlobFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+17
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  com.google.apphosting.utils.servlet.TransactionCleanupFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+3
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  com.google.appengine.tools.development.StaticFileFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+260
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  org.mortbay.jetty.servlet.ServletHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+470
+j  org.mortbay.jetty.security.SecurityHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+206
+j  org.mortbay.jetty.servlet.SessionHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+225
+j  org.mortbay.jetty.handler.ContextHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+714
+j  org.mortbay.jetty.webapp.WebAppContext.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+25
+j  com.google.apphosting.utils.jetty.DevAppEngineWebAppContext.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+59
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  com.google.appengine.tools.development.JettyContainerService$ApiProxyHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+57
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  org.mortbay.jetty.Server.handle(Lorg/mortbay/jetty/HttpConnection;)V+114
+j  org.mortbay.jetty.HttpConnection.handleRequest()V+138
+j  org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete()V+438
+j  org.mortbay.jetty.HttpParser.parseNext()J+1797
+j  org.mortbay.jetty.HttpParser.parseAvailable()J+1
+j  org.mortbay.jetty.HttpConnection.handle()V+124
+j  org.mortbay.io.nio.SelectChannelEndPoint.run()V+4
+j  org.mortbay.thread.QueuedThreadPool$PoolThread.run()V+25
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x431188]
+V  [libjvm.so+0x430028]
+V  [libjvm.so+0x430be3]
+V  [libjvm.so+0x430d07]
+V  [libjvm.so+0x482350]
+V  [libjvm.so+0x6e75eb]
+V  [libjvm.so+0x5e39f2]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.kervinramen.spotfinder.servlets.HelperServlet.doGet(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+225
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+35
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+30
+j  org.mortbay.jetty.servlet.ServletHolder.handle(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+179
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+103
+j  com.google.appengine.api.blobstore.dev.ServeBlobFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+17
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  com.google.apphosting.utils.servlet.TransactionCleanupFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+3
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  com.google.appengine.tools.development.StaticFileFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+260
+j  org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+53
+j  org.mortbay.jetty.servlet.ServletHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+470
+j  org.mortbay.jetty.security.SecurityHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+206
+j  org.mortbay.jetty.servlet.SessionHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+225
+j  org.mortbay.jetty.handler.ContextHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+714
+j  org.mortbay.jetty.webapp.WebAppContext.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+25
+j  com.google.apphosting.utils.jetty.DevAppEngineWebAppContext.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+59
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  com.google.appengine.tools.development.JettyContainerService$ApiProxyHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+57
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  org.mortbay.jetty.Server.handle(Lorg/mortbay/jetty/HttpConnection;)V+114
+j  org.mortbay.jetty.HttpConnection.handleRequest()V+138
+j  org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete()V+438
+j  org.mortbay.jetty.HttpParser.parseNext()J+1797
+j  org.mortbay.jetty.HttpParser.parseAvailable()J+1
+j  org.mortbay.jetty.HttpConnection.handle()V+124
+j  org.mortbay.io.nio.SelectChannelEndPoint.run()V+4
+j  org.mortbay.thread.QueuedThreadPool$PoolThread.run()V+25
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fee6822f800 JavaThread "Timer-1" daemon [_thread_blocked, id=15635, stack(0x00007fee75510000,0x00007fee75611000)]
+  0x00007fee681e6000 JavaThread "1026179434@qtp-291172425-1 - Acceptor0 SelectChannelConnector@127.0.0.1:8885" [_thread_in_native, id=15634, stack(0x00007fee758dd000,0x00007fee759de000)]
+=>0x00007fee681d1800 JavaThread "13817227@qtp-291172425-0" [_thread_in_vm, id=15633, stack(0x00007fee759de000,0x00007fee75adf000)]
+  0x00007fee68003000 JavaThread "Timer-0" daemon [_thread_blocked, id=15630, stack(0x00007fee779fc000,0x00007fee77afd000)]
+  0x0000000001ad7800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=15628, stack(0x00007fee77bfe000,0x00007fee77cff000)]
+  0x0000000001ad5800 JavaThread "CompilerThread1" daemon [_thread_blocked, id=15627, stack(0x00007fee6fbfe000,0x00007fee6fcff000)]
+  0x0000000001ad2800 JavaThread "CompilerThread0" daemon [_thread_blocked, id=15626, stack(0x00007fee77cff000,0x00007fee77e00000)]
+  0x0000000001a34800 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=15623, stack(0x00007fee77fdc000,0x00007fee780dd000)]
+  0x0000000001a32000 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=15622, stack(0x00007fee780dd000,0x00007fee781de000)]
+  0x0000000001a2e800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=15620, stack(0x00007fee781de000,0x00007fee782df000)]
+  0x0000000001a22000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=15618, stack(0x00007fee784e4000,0x00007fee785e5000)]
+  0x00000000019ff000 JavaThread "Finalizer" daemon [_thread_blocked, id=15617, stack(0x00007fee785e5000,0x00007fee786e6000)]
+  0x00000000019fd000 JavaThread "Reference Handler" daemon [_thread_blocked, id=15616, stack(0x00007fee786e6000,0x00007fee787e7000)]
+  0x0000000001991800 JavaThread "main" [_thread_blocked, id=15610, stack(0x00007fee7f83d000,0x00007fee7f93e000)]
+
+Other Threads:
+  0x00000000019f6000 VMThread [stack: 0x00007fee787e7000,0x00007fee788e8000] [id=15615]
+  0x00007fee7000b800 WatcherThread [stack: 0x00007fee77afd000,0x00007fee77bfe000] [id=15629]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 18176K, used 15450K [0x00000000f5560000, 0x00000000f78e0000, 0x0000000100000000)
+  eden space 15616K, 82% used [0x00000000f5560000,0x00000000f61fa650,0x00000000f64a0000)
+  from space 2560K, 99% used [0x00000000f64a0000,0x00000000f671c280,0x00000000f6720000)
+  to   space 2560K, 0% used [0x00000000f7660000,0x00000000f7660000,0x00000000f78e0000)
+ PSOldGen        total 41600K, used 3517K [0x00000000e0000000, 0x00000000e28a0000, 0x00000000f5560000)
+  object space 41600K, 8% used [0x00000000e0000000,0x00000000e036f4e0,0x00000000e28a0000)
+ PSPermGen       total 21248K, used 17620K [0x00000000d5a00000, 0x00000000d6ec0000, 0x00000000e0000000)
+  object space 21248K, 82% used [0x00000000d5a00000,0x00000000d6b35078,0x00000000d6ec0000)
+
+Dynamic libraries:
+00400000-00409000 r-xp 00000000 08:05 296809                             /usr/lib/jvm/java-6-openjdk/jre/bin/java
+00608000-00609000 r--p 00008000 08:05 296809                             /usr/lib/jvm/java-6-openjdk/jre/bin/java
+00609000-0060a000 rw-p 00009000 08:05 296809                             /usr/lib/jvm/java-6-openjdk/jre/bin/java
+01983000-05ebe000 rw-p 00000000 00:00 0                                  [heap]
+d5a00000-d6ec0000 rw-p 00000000 00:00 0 
+d6ec0000-e0000000 rw-p 00000000 00:00 0 
+e0000000-e28a0000 rw-p 00000000 00:00 0 
+e28a0000-f5560000 rw-p 00000000 00:00 0 
+f5560000-f78e0000 rw-p 00000000 00:00 0 
+f78e0000-100000000 rw-p 00000000 00:00 0 
+7fee68000000-7fee688bf000 rw-p 00000000 00:00 0 
+7fee688bf000-7fee6c000000 ---p 00000000 00:00 0 
+7fee6fbfe000-7fee6fc01000 ---p 00000000 00:00 0 
+7fee6fc01000-7fee6fcff000 rw-p 00000000 00:00 0 
+7fee70000000-7fee70fdf000 rw-p 00000000 00:00 0 
+7fee70fdf000-7fee74000000 ---p 00000000 00:00 0 
+7fee75510000-7fee75513000 ---p 00000000 00:00 0 
+7fee75513000-7fee75611000 rw-p 00000000 00:00 0 
+7fee75611000-7fee75619000 r-xp 00000000 08:05 296818                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnio.so
+7fee75619000-7fee75818000 ---p 00008000 08:05 296818                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnio.so
+7fee75818000-7fee75819000 r--p 00007000 08:05 296818                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnio.so
+7fee75819000-7fee7581a000 rw-p 00008000 08:05 296818                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnio.so
+7fee7581a000-7fee7581b000 r--s 00004000 08:05 264692                     /usr/lib/jvm/java-6-openjdk/jre/lib/about.jar
+7fee7581b000-7fee75824000 r--s 000b3000 08:05 270675                     /usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar
+7fee75824000-7fee75825000 r--s 00000000 08:05 264744                     /usr/lib/jvm/java-6-openjdk/jre/lib/compilefontconfig.jar
+7fee75825000-7fee75826000 r--s 00000000 08:05 270630                     /usr/lib/jvm/java-6-openjdk/jre/lib/management-agent.jar
+7fee75826000-7fee75828000 r--s 00009000 08:05 270616                     /usr/lib/jvm/java-6-openjdk/jre/lib/javazic.jar
+7fee75828000-7fee7582a000 r--s 00001000 08:05 270674                     /usr/lib/jvm/java-6-openjdk/jre/lib/im/thaiim.jar
+7fee7582a000-7fee7582c000 r--s 00001000 08:05 270623                     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/dnsns.jar
+7fee7582c000-7fee7582d000 r--s 00002000 08:05 270649                     /usr/lib/jvm/java-6-openjdk/jre/lib/im/indicim.jar
+7fee7582d000-7fee7583b000 r--s 00351000 08:05 264699                     /usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar
+7fee7583b000-7fee7583c000 r--s 00001000 08:03 432                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/jsr107cache-1.1.jar
+7fee7583c000-7fee75842000 r--s 0002a000 08:03 439                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+7fee75842000-7fee75843000 r--s 00003000 08:03 438                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+7fee75843000-7fee75846000 r--s 0000a000 08:03 436                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+7fee75846000-7fee7584a000 r--s 00022000 08:03 440                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+7fee7584a000-7fee75864000 r--s 001be000 08:03 437                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+7fee75864000-7fee7586a000 r--s 00045000 08:03 435                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+7fee7586a000-7fee7586b000 r--s 00001000 08:03 441                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/appengine-jsr107cache-1.4.3.jar
+7fee7586b000-7fee75876000 r--s 0019d000 08:03 434                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/appengine-api-labs-1.4.3.jar
+7fee75876000-7fee758dd000 r--s 00f5b000 08:03 433                        /media/files/Kervin/app-engine/spotfinder/war/WEB-INF/lib/appengine-api-1.0-sdk-1.4.3.jar
+7fee758dd000-7fee758e0000 ---p 00000000 00:00 0 
+7fee758e0000-7fee759de000 rw-p 00000000 00:00 0 
+7fee759de000-7fee759e1000 ---p 00000000 00:00 0 
+7fee759e1000-7fee75adf000 rw-p 00000000 00:00 0 
+7fee75adf000-7fee75b46000 r--s 00f5b000 08:05 681995                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/impl/appengine-api.jar
+7fee75b46000-7fee75b93000 r--s 009be000 08:05 681996                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/impl/appengine-local-runtime.jar
+7fee75b93000-7fee75bbe000 r--s 00630000 08:05 681994                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/impl/appengine-api-stubs.jar
+7fee75bbe000-7fee75bc1000 ---p 00000000 00:00 0 
+7fee75bc1000-7fee75cbf000 rw-p 00000000 00:00 0 
+7fee75cbf000-7fee75cd5000 r-xp 00000000 08:05 4342                       /lib/libresolv-2.12.1.so
+7fee75cd5000-7fee75ed4000 ---p 00016000 08:05 4342                       /lib/libresolv-2.12.1.so
+7fee75ed4000-7fee75ed5000 r--p 00015000 08:05 4342                       /lib/libresolv-2.12.1.so
+7fee75ed5000-7fee75ed6000 rw-p 00016000 08:05 4342                       /lib/libresolv-2.12.1.so
+7fee75ed6000-7fee75ed8000 rw-p 00000000 00:00 0 
+7fee75ed8000-7fee75edd000 r-xp 00000000 08:05 4337                       /lib/libnss_dns-2.12.1.so
+7fee75edd000-7fee760dc000 ---p 00005000 08:05 4337                       /lib/libnss_dns-2.12.1.so
+7fee760dc000-7fee760dd000 r--p 00004000 08:05 4337                       /lib/libnss_dns-2.12.1.so
+7fee760dd000-7fee760de000 rw-p 00005000 08:05 4337                       /lib/libnss_dns-2.12.1.so
+7fee760de000-7fee760e0000 r-xp 00000000 08:05 134                        /lib/libnss_mdns4_minimal.so.2
+7fee760e0000-7fee762df000 ---p 00002000 08:05 134                        /lib/libnss_mdns4_minimal.so.2
+7fee762df000-7fee762e0000 r--p 00001000 08:05 134                        /lib/libnss_mdns4_minimal.so.2
+7fee762e0000-7fee762e1000 rw-p 00002000 08:05 134                        /lib/libnss_mdns4_minimal.so.2
+7fee762e1000-7fee762f6000 r-xp 00000000 08:05 296824                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnet.so
+7fee762f6000-7fee764f5000 ---p 00015000 08:05 296824                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnet.so
+7fee764f5000-7fee764f6000 r--p 00014000 08:05 296824                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnet.so
+7fee764f6000-7fee764f7000 rw-p 00015000 08:05 296824                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnet.so
+7fee764f7000-7fee7655d000 r-xp 00000000 08:05 165137                     /usr/lib/nss/libfreebl3.so
+7fee7655d000-7fee7675d000 ---p 00066000 08:05 165137                     /usr/lib/nss/libfreebl3.so
+7fee7675d000-7fee7675e000 r--p 00066000 08:05 165137                     /usr/lib/nss/libfreebl3.so
+7fee7675e000-7fee7675f000 rw-p 00067000 08:05 165137                     /usr/lib/nss/libfreebl3.so
+7fee7675f000-7fee76763000 rw-p 00000000 00:00 0 
+7fee76763000-7fee767f5000 r-xp 00000000 08:05 137512                     /usr/lib/libsqlite3.so.0.8.6
+7fee767f5000-7fee769f4000 ---p 00092000 08:05 137512                     /usr/lib/libsqlite3.so.0.8.6
+7fee769f4000-7fee769f6000 r--p 00091000 08:05 137512                     /usr/lib/libsqlite3.so.0.8.6
+7fee769f6000-7fee769f8000 rw-p 00093000 08:05 137512                     /usr/lib/libsqlite3.so.0.8.6
+7fee769f8000-7fee76a36000 r-xp 00000000 08:05 165146                     /usr/lib/nss/libsoftokn3.so
+7fee76a36000-7fee76c35000 ---p 0003e000 08:05 165146                     /usr/lib/nss/libsoftokn3.so
+7fee76c35000-7fee76c37000 r--p 0003d000 08:05 165146                     /usr/lib/nss/libsoftokn3.so
+7fee76c37000-7fee76c38000 rw-p 0003f000 08:05 165146                     /usr/lib/nss/libsoftokn3.so
+7fee76c38000-7fee76c6e000 r-xp 00000000 08:05 134952                     /usr/lib/libnspr4.so
+7fee76c6e000-7fee76e6e000 ---p 00036000 08:05 134952                     /usr/lib/libnspr4.so
+7fee76e6e000-7fee76e6f000 r--p 00036000 08:05 134952                     /usr/lib/libnspr4.so
+7fee76e6f000-7fee76e70000 rw-p 00037000 08:05 134952                     /usr/lib/libnspr4.so
+7fee76e70000-7fee76e73000 rw-p 00000000 00:00 0 
+7fee76e73000-7fee76e76000 r-xp 00000000 08:05 135013                     /usr/lib/libplds4.so
+7fee76e76000-7fee77075000 ---p 00003000 08:05 135013                     /usr/lib/libplds4.so
+7fee77075000-7fee77076000 r--p 00002000 08:05 135013                     /usr/lib/libplds4.so
+7fee77076000-7fee77077000 rw-p 00003000 08:05 135013                     /usr/lib/libplds4.so
+7fee77077000-7fee7707b000 r-xp 00000000 08:05 135011                     /usr/lib/libplc4.so
+7fee7707b000-7fee7727a000 ---p 00004000 08:05 135011                     /usr/lib/libplc4.so
+7fee7727a000-7fee7727b000 r--p 00003000 08:05 135011                     /usr/lib/libplc4.so
+7fee7727b000-7fee7727c000 rw-p 00004000 08:05 135011                     /usr/lib/libplc4.so
+7fee7727c000-7fee77295000 r-xp 00000000 08:05 165271                     /usr/lib/libnssutil3.so
+7fee77295000-7fee77495000 ---p 00019000 08:05 165271                     /usr/lib/libnssutil3.so
+7fee77495000-7fee7749a000 r--p 00019000 08:05 165271                     /usr/lib/libnssutil3.so
+7fee7749a000-7fee7749b000 rw-p 0001e000 08:05 165271                     /usr/lib/libnssutil3.so
+7fee7749f000-7fee774a2000 r--s 00077000 08:05 270621                     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/localedata.jar
+7fee774a2000-7fee774ae000 r--s 00155000 08:05 682013                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/tools/jsp/repackaged-appengine-jasper-jdt-6.0.29.jar
+7fee774ae000-7fee774b7000 r--s 00059000 08:05 682012                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/tools/jsp/repackaged-appengine-jakarta-standard-1.1.2.jar
+7fee774b7000-7fee775e5000 r-xp 00000000 08:05 165282                     /usr/lib/libnss3.so
+7fee775e5000-7fee777e4000 ---p 0012e000 08:05 165282                     /usr/lib/libnss3.so
+7fee777e4000-7fee777e9000 r--p 0012d000 08:05 165282                     /usr/lib/libnss3.so
+7fee777e9000-7fee777eb000 rw-p 00132000 08:05 165282                     /usr/lib/libnss3.so
+7fee777eb000-7fee777ed000 rw-p 00000000 00:00 0 
+7fee777ed000-7fee777fb000 r-xp 00000000 08:05 296826                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libj2pkcs11.so
+7fee777fb000-7fee779fa000 ---p 0000e000 08:05 296826                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libj2pkcs11.so
+7fee779fa000-7fee779fb000 r--p 0000d000 08:05 296826                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libj2pkcs11.so
+7fee779fb000-7fee779fc000 rw-p 0000e000 08:05 296826                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libj2pkcs11.so
+7fee779fc000-7fee779ff000 ---p 00000000 00:00 0 
+7fee779ff000-7fee77afd000 rw-p 00000000 00:00 0 
+7fee77afd000-7fee77afe000 ---p 00000000 00:00 0 
+7fee77afe000-7fee77bfe000 rw-p 00000000 00:00 0 
+7fee77bfe000-7fee77c01000 ---p 00000000 00:00 0 
+7fee77c01000-7fee77cff000 rw-p 00000000 00:00 0 
+7fee77cff000-7fee77d02000 ---p 00000000 00:00 0 
+7fee77d02000-7fee77e00000 rw-p 00000000 00:00 0 
+7fee77e00000-7fee77e03000 r--s 00046000 08:03 45189                      /media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/agent/appengine-agentimpl.jar
+7fee77e03000-7fee77e07000 r--s 0007c000 08:05 264690                     /usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar
+7fee77e07000-7fee77e09000 r--s 00007000 08:03 45188                      /media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/agent/appengine-agent.jar
+7fee77e09000-7fee77e5b000 r--s 008ca000 08:05 681991                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/appengine-tools-api.jar
+7fee77e5b000-7fee77e5c000 r--s 00001000 08:05 682023                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/appengine-jsr107cache-1.4.3.jar
+7fee77e5c000-7fee77e60000 r--s 00022000 08:05 682027                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/datanucleus-jpa-1.1.5.jar
+7fee77e60000-7fee77e66000 r--s 0002a000 08:05 682030                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/jdo2-api-2.3-eb.jar
+7fee77e66000-7fee77e67000 r--s 00003000 08:05 682029                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/geronimo-jta_1.1_spec-1.1.1.jar
+7fee77e67000-7fee77e81000 r--s 001be000 08:05 682026                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/datanucleus-core-1.1.5.jar
+7fee77e81000-7fee77e84000 r--s 0000a000 08:05 682028                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/geronimo-jpa_3.0_spec-1.1.1.jar
+7fee77e84000-7fee77e8a000 r--s 00045000 08:05 682025                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/orm/datanucleus-appengine-1.0.8.final.jar
+7fee77e8a000-7fee77e95000 r--s 0019d000 08:05 682022                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/appengine-api-labs-1.4.3.jar
+7fee77e95000-7fee77efc000 r--s 00f5b000 08:05 682021                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/appengine-api-1.0-sdk-1.4.3.jar
+7fee77efc000-7fee77efd000 r--s 00001000 08:05 682024                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/user/jsr107cache-1.1.jar
+7fee77efd000-7fee77eff000 r--s 00011000 08:05 682001                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp-api.jar
+7fee77eff000-7fee77f01000 r--s 00014000 08:05 682008                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/servlet-api.jar
+7fee77f01000-7fee77f04000 r--s 0004c000 08:05 681999                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/appengine-local-runtime-shared.jar
+7fee77f04000-7fee77f06000 r--s 00006000 08:05 682000                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/el-api.jar
+7fee77f06000-7fee77f08000 r--s 00002000 08:05 682004                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp/repackaged-appengine-ant-launcher-1.7.1.jar
+7fee77f08000-7fee77f1c000 r--s 0012e000 08:05 682003                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp/repackaged-appengine-ant-1.7.1.jar
+7fee77f1c000-7fee77f1d000 r--s 00006000 08:05 682007                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp/repackaged-appengine-tomcat-juli-6.0.29.jar
+7fee77f1d000-7fee77f1f000 r--s 00019000 08:05 682006                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp/repackaged-appengine-jasper-el-6.0.29.jar
+7fee77f1f000-7fee77f26000 r--s 0007b000 08:05 682005                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/shared/jsp/repackaged-appengine-jasper-6.0.29.jar
+7fee77f26000-7fee77f75000 r--s 0086b000 08:03 45228                      /media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/appengine-remote-api.jar
+7fee77f75000-7fee77fdc000 r--s 00f5b000 08:03 45195                      /media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/impl/appengine-api.jar
+7fee77fdc000-7fee77fdf000 ---p 00000000 00:00 0 
+7fee77fdf000-7fee780dd000 rw-p 00000000 00:00 0 
+7fee780dd000-7fee780e0000 ---p 00000000 00:00 0 
+7fee780e0000-7fee781de000 rw-p 00000000 00:00 0 
+7fee781de000-7fee781e1000 ---p 00000000 00:00 0 
+7fee781e1000-7fee782df000 rw-p 00000000 00:00 0 
+7fee782df000-7fee782e3000 r-xp 00000000 08:05 296817                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libdt_socket.so
+7fee782e3000-7fee784e2000 ---p 00004000 08:05 296817                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libdt_socket.so
+7fee784e2000-7fee784e3000 r--p 00003000 08:05 296817                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libdt_socket.so
+7fee784e3000-7fee784e4000 rw-p 00004000 08:05 296817                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libdt_socket.so
+7fee784e4000-7fee784e7000 ---p 00000000 00:00 0 
+7fee784e7000-7fee785e5000 rw-p 00000000 00:00 0 
+7fee785e5000-7fee785e8000 ---p 00000000 00:00 0 
+7fee785e8000-7fee786e6000 rw-p 00000000 00:00 0 
+7fee786e6000-7fee786e9000 ---p 00000000 00:00 0 
+7fee786e9000-7fee787e7000 rw-p 00000000 00:00 0 
+7fee787e7000-7fee787e8000 ---p 00000000 00:00 0 
+7fee787e8000-7fee78beb000 rw-p 00000000 00:00 0 
+7fee78beb000-7fee78bed000 r--s 0001d000 08:05 264702                     /usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar
+7fee78bed000-7fee78bf2000 r--s 00044000 08:05 264718                     /usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar
+7fee78bf2000-7fee78c25000 rw-p 00000000 00:00 0 
+7fee78c25000-7fee78db4000 r--s 038c2000 08:05 296848                     /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+7fee78db4000-7fee78ddc000 rw-p 00000000 00:00 0 
+7fee78ddc000-7fee78ddd000 ---p 00000000 00:00 0 
+7fee78ddd000-7fee78edd000 rw-p 00000000 00:00 0 
+7fee78edd000-7fee78ede000 ---p 00000000 00:00 0 
+7fee78ede000-7fee78fe9000 rw-p 00000000 00:00 0 
+7fee78fe9000-7fee79031000 rw-p 00000000 00:00 0 
+7fee79031000-7fee79046000 rw-p 00000000 00:00 0 
+7fee79046000-7fee790dc000 rw-p 00000000 00:00 0 
+7fee790dc000-7fee790e7000 rw-p 00000000 00:00 0 
+7fee790e7000-7fee7912f000 rw-p 00000000 00:00 0 
+7fee7912f000-7fee79144000 rw-p 00000000 00:00 0 
+7fee79144000-7fee791d9000 rw-p 00000000 00:00 0 
+7fee791d9000-7fee791ec000 rw-p 00000000 00:00 0 
+7fee791ec000-7fee7922f000 rw-p 00000000 00:00 0 
+7fee7922f000-7fee79230000 rw-p 00000000 00:00 0 
+7fee79230000-7fee794a0000 rwxp 00000000 00:00 0 
+7fee794a0000-7fee7c230000 rw-p 00000000 00:00 0 
+7fee7c230000-7fee7c237000 r-xp 00000000 08:05 296838                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libzip.so
+7fee7c237000-7fee7c436000 ---p 00007000 08:05 296838                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libzip.so
+7fee7c436000-7fee7c437000 r--p 00006000 08:05 296838                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libzip.so
+7fee7c437000-7fee7c438000 rw-p 00007000 08:05 296838                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libzip.so
+7fee7c438000-7fee7c444000 r-xp 00000000 08:05 4350                       /lib/libnss_files-2.12.1.so
+7fee7c444000-7fee7c643000 ---p 0000c000 08:05 4350                       /lib/libnss_files-2.12.1.so
+7fee7c643000-7fee7c644000 r--p 0000b000 08:05 4350                       /lib/libnss_files-2.12.1.so
+7fee7c644000-7fee7c645000 rw-p 0000c000 08:05 4350                       /lib/libnss_files-2.12.1.so
+7fee7c645000-7fee7c64f000 r-xp 00000000 08:05 4345                       /lib/libnss_nis-2.12.1.so
+7fee7c64f000-7fee7c84e000 ---p 0000a000 08:05 4345                       /lib/libnss_nis-2.12.1.so
+7fee7c84e000-7fee7c84f000 r--p 00009000 08:05 4345                       /lib/libnss_nis-2.12.1.so
+7fee7c84f000-7fee7c850000 rw-p 0000a000 08:05 4345                       /lib/libnss_nis-2.12.1.so
+7fee7c850000-7fee7c858000 r-xp 00000000 08:05 4347                       /lib/libnss_compat-2.12.1.so
+7fee7c858000-7fee7ca57000 ---p 00008000 08:05 4347                       /lib/libnss_compat-2.12.1.so
+7fee7ca57000-7fee7ca58000 r--p 00007000 08:05 4347                       /lib/libnss_compat-2.12.1.so
+7fee7ca58000-7fee7ca59000 rw-p 00008000 08:05 4347                       /lib/libnss_compat-2.12.1.so
+7fee7ca59000-7fee7ca62000 r-xp 00000000 08:05 296833                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libinstrument.so
+7fee7ca62000-7fee7cc61000 ---p 00009000 08:05 296833                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libinstrument.so
+7fee7cc61000-7fee7cc62000 r--p 00008000 08:05 296833                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libinstrument.so
+7fee7cc62000-7fee7cc63000 rw-p 00009000 08:05 296833                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libinstrument.so
+7fee7cc63000-7fee7cf07000 r--p 00000000 08:05 132891                     /usr/lib/locale/locale-archive
+7fee7cf07000-7fee7cf0a000 r-xp 00000000 08:05 296830                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnpt.so
+7fee7cf0a000-7fee7d109000 ---p 00003000 08:05 296830                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnpt.so
+7fee7d109000-7fee7d10a000 r--p 00002000 08:05 296830                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnpt.so
+7fee7d10a000-7fee7d10b000 rw-p 00003000 08:05 296830                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libnpt.so
+7fee7d10b000-7fee7d144000 r-xp 00000000 08:05 296829                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjdwp.so
+7fee7d144000-7fee7d343000 ---p 00039000 08:05 296829                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjdwp.so
+7fee7d343000-7fee7d344000 r--p 00038000 08:05 296829                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjdwp.so
+7fee7d344000-7fee7d345000 rw-p 00039000 08:05 296829                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjdwp.so
+7fee7d345000-7fee7d34d000 r-xp 00000000 08:05 406923                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/native_threads/libhpi.so
+7fee7d34d000-7fee7d54c000 ---p 00008000 08:05 406923                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/native_threads/libhpi.so
+7fee7d54c000-7fee7d54d000 r--p 00007000 08:05 406923                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/native_threads/libhpi.so
+7fee7d54d000-7fee7d54e000 rw-p 00008000 08:05 406923                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/native_threads/libhpi.so
+7fee7d54e000-7fee7d565000 r-xp 00000000 08:05 4349                       /lib/libnsl-2.12.1.so
+7fee7d565000-7fee7d764000 ---p 00017000 08:05 4349                       /lib/libnsl-2.12.1.so
+7fee7d764000-7fee7d765000 r--p 00016000 08:05 4349                       /lib/libnsl-2.12.1.so
+7fee7d765000-7fee7d766000 rw-p 00017000 08:05 4349                       /lib/libnsl-2.12.1.so
+7fee7d766000-7fee7d768000 rw-p 00000000 00:00 0 
+7fee7d768000-7fee7d793000 r-xp 00000000 08:05 296837                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjava.so
+7fee7d793000-7fee7d992000 ---p 0002b000 08:05 296837                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjava.so
+7fee7d992000-7fee7d993000 r--p 0002a000 08:05 296837                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjava.so
+7fee7d993000-7fee7d996000 rw-p 0002b000 08:05 296837                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libjava.so
+7fee7d996000-7fee7d9a4000 r-xp 00000000 08:05 296823                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libverify.so
+7fee7d9a4000-7fee7dba3000 ---p 0000e000 08:05 296823                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libverify.so
+7fee7dba3000-7fee7dba5000 r--p 0000d000 08:05 296823                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libverify.so
+7fee7dba5000-7fee7dba6000 rw-p 0000f000 08:05 296823                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/libverify.so
+7fee7dba6000-7fee7dbad000 r-xp 00000000 08:05 4334                       /lib/librt-2.12.1.so
+7fee7dbad000-7fee7ddac000 ---p 00007000 08:05 4334                       /lib/librt-2.12.1.so
+7fee7ddac000-7fee7ddad000 r--p 00006000 08:05 4334                       /lib/librt-2.12.1.so
+7fee7ddad000-7fee7ddae000 rw-p 00007000 08:05 4334                       /lib/librt-2.12.1.so
+7fee7ddae000-7fee7de30000 r-xp 00000000 08:05 4343                       /lib/libm-2.12.1.so
+7fee7de30000-7fee7e02f000 ---p 00082000 08:05 4343                       /lib/libm-2.12.1.so
+7fee7e02f000-7fee7e030000 r--p 00081000 08:05 4343                       /lib/libm-2.12.1.so
+7fee7e030000-7fee7e031000 rw-p 00082000 08:05 4343                       /lib/libm-2.12.1.so
+7fee7e031000-7fee7e8b6000 r-xp 00000000 08:05 406920                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server/libjvm.so
+7fee7e8b6000-7fee7eab6000 ---p 00885000 08:05 406920                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server/libjvm.so
+7fee7eab6000-7fee7eb2c000 r--p 00885000 08:05 406920                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server/libjvm.so
+7fee7eb2c000-7fee7eb47000 rw-p 008fb000 08:05 406920                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server/libjvm.so
+7fee7eb47000-7fee7eb80000 rw-p 00000000 00:00 0 
+7fee7eb80000-7fee7ecfa000 r-xp 00000000 08:05 4336                       /lib/libc-2.12.1.so
+7fee7ecfa000-7fee7eef9000 ---p 0017a000 08:05 4336                       /lib/libc-2.12.1.so
+7fee7eef9000-7fee7eefd000 r--p 00179000 08:05 4336                       /lib/libc-2.12.1.so
+7fee7eefd000-7fee7eefe000 rw-p 0017d000 08:05 4336                       /lib/libc-2.12.1.so
+7fee7eefe000-7fee7ef03000 rw-p 00000000 00:00 0 
+7fee7ef03000-7fee7ef05000 r-xp 00000000 08:05 4352                       /lib/libdl-2.12.1.so
+7fee7ef05000-7fee7f105000 ---p 00002000 08:05 4352                       /lib/libdl-2.12.1.so
+7fee7f105000-7fee7f106000 r--p 00002000 08:05 4352                       /lib/libdl-2.12.1.so
+7fee7f106000-7fee7f107000 rw-p 00003000 08:05 4352                       /lib/libdl-2.12.1.so
+7fee7f107000-7fee7f10b000 r-xp 00000000 08:05 406917                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/jli/libjli.so
+7fee7f10b000-7fee7f30a000 ---p 00004000 08:05 406917                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/jli/libjli.so
+7fee7f30a000-7fee7f30b000 r--p 00003000 08:05 406917                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/jli/libjli.so
+7fee7f30b000-7fee7f30c000 rw-p 00004000 08:05 406917                     /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/jli/libjli.so
+7fee7f30c000-7fee7f324000 r-xp 00000000 08:05 4338                       /lib/libpthread-2.12.1.so
+7fee7f324000-7fee7f523000 ---p 00018000 08:05 4338                       /lib/libpthread-2.12.1.so
+7fee7f523000-7fee7f524000 r--p 00017000 08:05 4338                       /lib/libpthread-2.12.1.so
+7fee7f524000-7fee7f525000 rw-p 00018000 08:05 4338                       /lib/libpthread-2.12.1.so
+7fee7f525000-7fee7f529000 rw-p 00000000 00:00 0 
+7fee7f529000-7fee7f53f000 r-xp 00000000 08:05 211                        /lib/libz.so.1.2.3.4
+7fee7f53f000-7fee7f73f000 ---p 00016000 08:05 211                        /lib/libz.so.1.2.3.4
+7fee7f73f000-7fee7f740000 r--p 00016000 08:05 211                        /lib/libz.so.1.2.3.4
+7fee7f740000-7fee7f741000 rw-p 00017000 08:05 211                        /lib/libz.so.1.2.3.4
+7fee7f741000-7fee7f761000 r-xp 00000000 08:05 4344                       /lib/ld-2.12.1.so
+7fee7f767000-7fee7f769000 r--s 00012000 08:05 681992                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/impl/agent/appengine-agentruntime.jar
+7fee7f769000-7fee7f774000 r--s 0019d000 08:05 681993                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/impl/appengine-api-labs.jar
+7fee7f774000-7fee7f77a000 r--s 000fc000 08:05 270677                     /usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar
+7fee7f77a000-7fee7f77d000 r--s 00038000 08:05 270619                     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunpkcs11.jar
+7fee7f77d000-7fee7f787000 rw-p 00000000 00:00 0 
+7fee7f787000-7fee7f83d000 rw-p 00000000 00:00 0 
+7fee7f83d000-7fee7f840000 ---p 00000000 00:00 0 
+7fee7f840000-7fee7f943000 rw-p 00000000 00:00 0 
+7fee7f943000-7fee7f945000 r--s 00004000 08:05 682011                     /home/kervin/Software/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.4.3.v201103311225/appengine-java-sdk-1.4.3/lib/tools/jsp/repackaged-appengine-jakarta-jstl-1.1.2.jar
+7fee7f945000-7fee7f947000 r--s 00013000 08:05 264697                     /usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar
+7fee7f947000-7fee7f94a000 r--s 00031000 08:05 270622                     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunjce_provider.jar
+7fee7f94a000-7fee7f952000 r--s 00066000 08:05 5663                       /usr/share/java/gnome-java-bridge.jar
+7fee7f952000-7fee7f955000 r--s 0000f000 08:05 270626                     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+7fee7f955000-7fee7f95d000 rw-s 00000000 08:05 545202                     /tmp/hsperfdata_kervin/15606
+7fee7f95d000-7fee7f95e000 rw-p 00000000 00:00 0 
+7fee7f95e000-7fee7f95f000 r--p 00000000 00:00 0 
+7fee7f95f000-7fee7f961000 rw-p 00000000 00:00 0 
+7fee7f961000-7fee7f962000 r--p 00020000 08:05 4344                       /lib/ld-2.12.1.so
+7fee7f962000-7fee7f963000 rw-p 00021000 08:05 4344                       /lib/ld-2.12.1.so
+7fee7f963000-7fee7f964000 rw-p 00000000 00:00 0 
+7fff15af6000-7fff15b18000 rw-p 00000000 00:00 0                          [stack]
+7fff15b79000-7fff15b7a000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:58251 -javaagent:/media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/agent/appengine-agent.jar -Xmx512m -Dfile.encoding=UTF-8 
+java_command: com.google.appengine.tools.development.DevAppServerMain --port=8885 /media/files/Kervin/app-engine/spotfinder/war
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+USERNAME=kervin
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk/jre/../lib/amd64
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x723630], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x723630], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x5e0000], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGXFSZ: [libjvm.so+0x5e0000], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x5e0000], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x5df710], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5e2180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5e2180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5e2180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5e2180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 10.10 (maverick)
+uname:Linux 2.6.35-28-generic #49-Ubuntu SMP Tue Mar 1 14:39:03 UTC 2011 x86_64
+libc:glibc 2.12.1 NPTL 2.12.1 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 1024, AS infinity
+load average:0.06 0.13 0.20
+
+/proc/meminfo:
+MemTotal:        3988124 kB
+MemFree:          499500 kB
+Buffers:          154124 kB
+Cached:           646348 kB
+SwapCached:         7844 kB
+Active:          1914044 kB
+Inactive:        1045160 kB
+Active(anon):    1519948 kB
+Inactive(anon):   655136 kB
+Active(file):     394096 kB
+Inactive(file):   390024 kB
+Unevictable:         128 kB
+Mlocked:             128 kB
+SwapTotal:        579580 kB
+SwapFree:         495132 kB
+Dirty:               436 kB
+Writeback:             0 kB
+AnonPages:       2152540 kB
+Mapped:           245316 kB
+Shmem:             16352 kB
+Slab:             113296 kB
+SReclaimable:      74892 kB
+SUnreclaim:        38404 kB
+KernelStack:        4624 kB
+PageTables:        50912 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     2573640 kB
+Committed_AS:    5794752 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      122196 kB
+VmallocChunk:   34359613060 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      366592 kB
+DirectMap2M:     3760128 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 3988124k(499500k free), swap 579580k(495132k free)
+
+vm_info: OpenJDK 64-Bit Server VM (19.0-b09) for linux-amd64 JRE (1.6.0_20-b20), built on Feb 23 2011 09:05:53 by "buildd" with gcc 4.4.5
+
+time: Sat Apr 16 18:56:24 2011
+elapsed time: 229 seconds
+
