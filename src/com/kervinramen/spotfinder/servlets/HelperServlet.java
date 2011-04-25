@@ -13,6 +13,8 @@ import java.io.IOException;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
+import com.google.appengine.tools.remoteapi.RemoteApiInstaller;
+import com.google.appengine.tools.remoteapi.RemoteApiOptions;
 import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 
@@ -27,13 +29,14 @@ public class HelperServlet extends HttpServlet {
 		if (req.getParameter("cmd").compareTo("1") == 0) {
 			resp.getWriter().println(
 					"access_token=189720214400755|jM8Ea6-5-REGx4jWN9fTtJp06LU");
-			resp.getWriter().println("classpath=" + System.getProperty("java.class.path"));
+			resp.getWriter().println(
+					"classpath=" + System.getProperty("java.class.path"));
 		}
 
 		if (req.getParameter("cmd").compareTo("2") == 0) {
 			String tokenUrl = "http://localhost:8888/helper?cmd=3";
 			String userInformation = HttpHelper.getStringResponse(tokenUrl);
-			
+
 			JSONObject user = null;
 
 			try {
@@ -42,7 +45,7 @@ public class HelperServlet extends HttpServlet {
 			} catch (JSONException e) {
 				resp.getWriter().println("Error " + e.getMessage());
 			}
-			
+
 		}
 
 		if (req.getParameter("cmd").compareTo("3") == 0) {
@@ -54,33 +57,32 @@ public class HelperServlet extends HttpServlet {
 					+ "'hometown': {"
 					+ "'id': '108445785852108',"
 					+ "'name': 'Belle \u00c9toile, Plaines Wilhems, Mauritius'} }";
-			
+
 			resp.getWriter().println(responseJSON);
 		}
-		
+
 		if (req.getParameter("cmd").compareTo("4") == 0) {
-			String info = HttpHelper.getResponse("https://graph.facebook.com/me?access_token=2227470867|2.ChW5v1sV5Im1i3L6jgwLuQ__.3600.1301940000-614080403|pX4D-3prlazqiCt6Jl8WQhyVbs0");
-			
+			String info = HttpHelper
+					.getResponse("https://graph.facebook.com/me?access_token=2227470867|2.ChW5v1sV5Im1i3L6jgwLuQ__.3600.1301940000-614080403|pX4D-3prlazqiCt6Jl8WQhyVbs0");
+
 			resp.getWriter().println(info);
 		}
-		
-		if (req.getParameter("cmd").compareTo("live-db") == 0) {
-			/*String password = req.getParameter("password");
-			RemoteApiOptions options = new RemoteApiOptions()
-				.server("myspotfinder.appspot.com", 443)
-	            .credentials("kervin152", password);
 
-			
-				RemoteApiInstaller installer = new RemoteApiInstaller();
-			*/
-//	        installer.install(options);
-//
-//			resp.sendRedirect("/");
-			
+		if (req.getParameter("cmd").compareTo("live-db") == 0) {
+			String password = req.getParameter("password");
+			RemoteApiOptions options = new RemoteApiOptions().server(
+					"myspotfinder.appspot.com", 443).credentials("kervin152",
+					password);
+
+			RemoteApiInstaller installer = new RemoteApiInstaller();
+
+			// installer.install(options);
+			//
+			// resp.sendRedirect("/");
 
 			resp.getWriter().println("hre");
 		}
-		
+
 		if (req.getParameter("cmd").compareTo("store") == 0) {
 			FacebookUser user = new FacebookUser();
 			user.setFeedGraph("test");

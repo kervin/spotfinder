@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/appengine-java-sdk-1.4.3"/>
+	<classpathentry kind="lib" path="/media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/appengine-remote-api.jar"/>
+	<classpathentry kind="lib" path="/media/files/Kervin/app-engine/appengine-java-sdk-1.4.3/lib/impl/appengine-api.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
