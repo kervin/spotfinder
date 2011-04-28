@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.tools.remoteapi.RemoteApiInstaller;
 import com.google.appengine.tools.remoteapi.RemoteApiOptions;
 import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
@@ -68,6 +71,13 @@ public class HelperServlet extends HttpServlet {
 			resp.getWriter().println(info);
 		}
 
+		if (req.getParameter("cmd").compareTo("5") == 0) {
+			String info = HttpHelper
+					.getResponse("https://graph.facebook.com/me?access_token=2227470867|2.ChW5v1sV5Im1i3L6jgwLuQ__.3600.1301940000-614080403|pX4D-3prlazqiCt6Jl8WQhyVbs0");
+
+			resp.getWriter().println(info);
+		}
+		
 		if (req.getParameter("cmd").compareTo("live-db") == 0) {
 			String password = req.getParameter("password");
 			RemoteApiOptions options = new RemoteApiOptions().server(
@@ -75,11 +85,11 @@ public class HelperServlet extends HttpServlet {
 					password);
 
 			RemoteApiInstaller installer = new RemoteApiInstaller();
-
-			// installer.install(options);
-			//
+			installer.install(options);
+			
 			// resp.sendRedirect("/");
 
+			
 			resp.getWriter().println("hre");
 		}
 
