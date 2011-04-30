@@ -12,8 +12,7 @@ import com.kervinramen.spotfinder.helpers.StringHelper;
  * @author kervin
  * 
  */
-public class App 
-{
+public class App {
 
 	// Attributes
 	private String appId = "189720214400755";
@@ -29,21 +28,19 @@ public class App
 	 * @param code
 	 *            Posted by Facebook
 	 */
-	public App(String code) 
-	{
+	public App(String code) {
 		this.code = code;
 	}
 
 	// Methods
 
 	/**
-	 * This url is when the user is wrongly authenticated and 
-	 * thus redirected to logn
+	 * This url is when the user is wrongly authenticated and thus redirected to
+	 * logn
 	 * 
 	 * @return
 	 */
-	public String getDialogUrl() 
-	{
+	public String getDialogUrl() {
 		String dialogUrl = "http://www.facebook.com/dialog/oauth?"
 				+ "client_id=" + this.appId + "&redirect_uri=" + this.appUrl;
 
@@ -54,38 +51,34 @@ public class App
 	 * Returns the access token for querying the graph It is the access token
 	 * that gives permission for any query
 	 * 
-	 * @param code Posted by Facebook on our application for use
+	 * @param code
+	 *            Posted by Facebook on our application for use
 	 * @return
 	 */
-	private String queryAccessToken() 
-	{
+	private String queryAccessToken() {
 		String tokenUrl = "https://graph.facebook.com/oauth/access_token?"
-				+ "client_id=" + this.appId
-				+ "&redirect_uri=" + this.appUrl 
-				+ "&client_secret=" + this.appSecret
-				+ "&code=" + this.code;
+				+ "client_id=" + this.appId + "&redirect_uri=" + this.appUrl
+				+ "&client_secret=" + this.appSecret + "&code=" + this.code;
 
 		this.accessToken = HttpHelper.getStringResponse(tokenUrl);
 		return this.accessToken;
 	}
-	
+
 	/**
 	 * This url is the url fore requesting permissions
+	 * 
 	 * @return
 	 */
-	public String getAuthenticationUrl() 
-	{
-		String url = "https://www.facebook.com/dialog/oauth?"
-			+ "client_id=" + this.appId
-			+ "&redirect_uri=" + this.appUrl
-			+ "&scope=user_photos,user_activities,read_stream";
-		
+	public String getAuthenticationUrl() {
+		String url = "https://www.facebook.com/dialog/oauth?" + "client_id="
+				+ this.appId + "&redirect_uri=" + this.appUrl
+				+ "&scope=user_photos,user_activities,read_stream";
+
 		return url;
-		
+
 	}
-	
-	public String getAccessToken() 
-	{
+
+	public String getAccessToken() {
 		return this.accessToken;
 	}
 
@@ -96,8 +89,7 @@ public class App
 	 *            permission token
 	 * @return
 	 */
-	public JSONObject getBasicGraph() 
-	{
+	public JSONObject getBasicGraph() {
 		// Gets the access Token
 		String accessToken = this.queryAccessToken();
 
@@ -107,8 +99,7 @@ public class App
 		return StringHelper.getJSON(userInformation);
 	}
 
-	public JSONObject getFeedGraph() 
-	{
+	public JSONObject getFeedGraph() {
 		// Gets the access Token
 		String accessToken = this.queryAccessToken();
 
@@ -118,8 +109,7 @@ public class App
 		return StringHelper.getJSON(userInformation);
 	}
 
-	public JSONObject getHomeGraph() 
-	{
+	public JSONObject getHomeGraph() {
 		// Gets the access Token
 		String accessToken = this.queryAccessToken();
 

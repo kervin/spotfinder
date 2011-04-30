@@ -21,10 +21,9 @@ public class QuestionServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		resp.getWriter().println("You have successfully been authenticated!!");
 
-
 		String code = req.getParameter("code");
 		App app = new App(code);
-		
+
 		if (code == null || code.isEmpty()) {
 			// Redirect in case of error
 			resp.sendRedirect(app.getDialogUrl());
@@ -32,7 +31,7 @@ public class QuestionServlet extends HttpServlet {
 
 		// Queries the graph for information
 		JSONObject userInfo = app.getBasicGraph();
-		
+
 		FacebookUser user = new FacebookUser();
 		user.setAccessToken(app.getAccessToken());
 		user.setUserId(userInfo.optString("id"));
@@ -40,9 +39,9 @@ public class QuestionServlet extends HttpServlet {
 		user.setInfoGraph(userInfo);
 		user.setFeedGraph(app.getFeedGraph());
 		user.setHomeFeedGraph(app.getHomeGraph());
-		
+
 		user.save();
-		
+
 		resp.getWriter().println("Hello there, " + user.getUsername());
 
 	}
