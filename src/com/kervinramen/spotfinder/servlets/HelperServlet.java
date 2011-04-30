@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import remoteapiexample.RemoteApiExample;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -13,11 +16,8 @@ import java.io.IOException;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.tools.remoteapi.RemoteApiInstaller;
-import com.google.appengine.tools.remoteapi.RemoteApiOptions;
+import com.google.appengine.tools.remoteapi.*;
+
 import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 
@@ -84,8 +84,17 @@ public class HelperServlet extends HttpServlet {
 					"myspotfinder.appspot.com", 443).credentials("kervin152",
 					password);
 
-			RemoteApiInstaller installer = new RemoteApiInstaller();
-			installer.install(options);
+			//RemoteApiInstaller installer = new RemoteApiInstaller();
+			com.google.appengine.tools.remoteapi.RemoteApiOptions option = new RemoteApiOptions();
+//			com.google.appengine.tools.remoteapi.RemoteApiInstaller instal = new RemoteApiInstaller();
+			
+			RemoteApiInstaller.makeDevAppServerCookie("test", "test");
+			
+			Throwable throwzs = new Throwable();
+			
+			com.google.appengine.tools.remoteapi.RemoteApiException ex = new RemoteApiException("test", "test", "test",throwzs);
+			
+			//installer.install(options);
 			
 			// resp.sendRedirect("/");
 
