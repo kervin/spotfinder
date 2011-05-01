@@ -53,13 +53,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>DbHelper</servlet-name>
-		<servlet-class>com.kervinramen.spotfinder.servlets.DbHelperServlet</servlet-class>
+		<servlet-name>Database</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.servlets.DatabaseServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>DbHelper</servlet-name>
-		<url-pattern>/dbhelper/*</url-pattern>
+		<servlet-name>Database</servlet-name>
+		<url-pattern>/database/user/*</url-pattern>
 	</servlet-mapping>
 	
 

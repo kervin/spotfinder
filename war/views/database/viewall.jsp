@@ -12,8 +12,10 @@
    <c:forEach items="${users.users}" var="current">
         ${current.username}
        ${current.userId}
+       ${current.infoGraph}
+       
+       in here
       </c:forEach>
-      
       
    
       xxx

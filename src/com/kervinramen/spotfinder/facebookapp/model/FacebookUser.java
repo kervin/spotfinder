@@ -52,7 +52,7 @@ public class FacebookUser {
 	@Persistent
 	// This graph stores the user information of the
 	// user such as name, id, activities, jobs
-	private Text infoGraph;
+	public Text infoGraph;
 
 	@Persistent
 	// This graph stored the user's feeds, all the status
@@ -106,6 +106,10 @@ public class FacebookUser {
 	public void setInfoGraph(JSONObject value) {
 		this.infoGraph = new Text(value.toString());
 	}
+	
+	public void setInfoGraph(String value) {
+		this.infoGraph = new Text(value);
+	}
 
 	public JSONObject getInfoGraph() {
 		return StringHelper.getJSON(this.infoGraph.toString());
@@ -127,6 +131,14 @@ public class FacebookUser {
 		this.homeFeedGraph = new Text(value.toString());
 	}
 
+	public void setHomeFeedGraph(String value) {
+		if (value == null) {
+			this.homeFeedGraph = null;
+		} else {
+			this.homeFeedGraph = new Text(value);
+		}
+	}
+	
 	public JSONObject getHomeFeedGraph() {
 		return StringHelper.getJSON(this.homeFeedGraph.toString());
 	}
@@ -147,10 +159,10 @@ public class FacebookUser {
 
 		try {
 			pm.makePersistent(this);
-		} finally {
+		}
+		finally {
 			pm.close();
 		}
-
 	}
 
 	public void searchUser(String username) {
@@ -167,14 +179,14 @@ public class FacebookUser {
 		PreparedQuery pq = datastore.prepare(q);
 
 		for (Entity result : pq.asIterable()) {
-			parseEntity(result);
+			this.parseEntity(result);
 		}
 	}
 
 	public void parseEntity(Entity result) {
 		
 		this.id = (Key) result.getProperty("id");
-		this.userId = (String) result.getProperty("lastName");
+		this.userId = (String) result.getProperty("userId");
 		this.username = (String) result.getProperty("username");
 		this.createdOn = (Date) result.getProperty("createdOn");
 		this.infoGraph = (Text) result.getProperty("infoGraph");

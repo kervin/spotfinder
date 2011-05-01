@@ -24,7 +24,7 @@ public class FacebookUsers {
 	}
 
 	public FacebookUsers() {
-
+		this.users = new ArrayList<FacebookUser>();
 	}
 
 	public void getAllUsers() {
