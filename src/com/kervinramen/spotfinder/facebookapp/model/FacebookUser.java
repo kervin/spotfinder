@@ -72,6 +72,7 @@ public class FacebookUser {
 	}
 
 	public String getUsername() {
+
 		return this.username;
 	}
 
@@ -106,13 +107,17 @@ public class FacebookUser {
 	public void setInfoGraph(JSONObject value) {
 		this.infoGraph = new Text(value.toString());
 	}
-	
+
 	public void setInfoGraph(String value) {
 		this.infoGraph = new Text(value);
 	}
 
 	public JSONObject getInfoGraph() {
 		return StringHelper.getJSON(this.infoGraph.toString());
+	}
+
+	public String getInfoGraphString() {
+		return this.infoGraph.toString();
 	}
 
 	public void setFeedGraph(JSONObject value) {
@@ -127,6 +132,10 @@ public class FacebookUser {
 		return StringHelper.getJSON(this.feedGraph.toString());
 	}
 
+	public String getFeedGraphString() {
+		return this.feedGraph.toString();
+	}
+
 	public void setHomeFeedGraph(JSONObject value) {
 		this.homeFeedGraph = new Text(value.toString());
 	}
@@ -138,9 +147,13 @@ public class FacebookUser {
 			this.homeFeedGraph = new Text(value);
 		}
 	}
-	
+
 	public JSONObject getHomeFeedGraph() {
 		return StringHelper.getJSON(this.homeFeedGraph.toString());
+	}
+
+	public Text getHomeFeedGraphString() {
+		return this.homeFeedGraph;
 	}
 
 	// Constructor
@@ -159,16 +172,14 @@ public class FacebookUser {
 
 		try {
 			pm.makePersistent(this);
-		}
-		finally {
+		} finally {
 			pm.close();
 		}
 	}
 
 	public void searchUser(String username) {
 		// Get the Datastore Service
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 		// The Query interface assembles a query
 		Query q = new Query("FacebookUser");
@@ -184,7 +195,7 @@ public class FacebookUser {
 	}
 
 	public void parseEntity(Entity result) {
-		
+
 		this.id = (Key) result.getProperty("id");
 		this.userId = (String) result.getProperty("userId");
 		this.username = (String) result.getProperty("username");
@@ -192,9 +203,9 @@ public class FacebookUser {
 		this.infoGraph = (Text) result.getProperty("infoGraph");
 		this.feedGraph = (Text) result.getProperty("feedGraph");
 		this.homeFeedGraph = (Text) result.getProperty("homeFeedGraph");
-		
+
 	}
-	
+
 	public void runQuery(String string) {
 
 		// Get the Datastore Service

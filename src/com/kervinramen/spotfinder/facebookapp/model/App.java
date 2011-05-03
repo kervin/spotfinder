@@ -41,8 +41,8 @@ public class App {
 	 * @return
 	 */
 	public String getDialogUrl() {
-		String dialogUrl = "http://www.facebook.com/dialog/oauth?"
-				+ "client_id=" + this.appId + "&redirect_uri=" + this.appUrl;
+		String dialogUrl = "http://www.facebook.com/dialog/oauth?" + "client_id=" + this.appId + "&redirect_uri="
+				+ this.appUrl;
 
 		return dialogUrl;
 	}
@@ -56,9 +56,8 @@ public class App {
 	 * @return
 	 */
 	private String queryAccessToken() {
-		String tokenUrl = "https://graph.facebook.com/oauth/access_token?"
-				+ "client_id=" + this.appId + "&redirect_uri=" + this.appUrl
-				+ "&client_secret=" + this.appSecret + "&code=" + this.code;
+		String tokenUrl = "https://graph.facebook.com/oauth/access_token?" + "client_id=" + this.appId
+				+ "&redirect_uri=" + this.appUrl + "&client_secret=" + this.appSecret + "&code=" + this.code;
 
 		this.accessToken = HttpHelper.getStringResponse(tokenUrl);
 		return this.accessToken;
@@ -70,9 +69,8 @@ public class App {
 	 * @return
 	 */
 	public String getAuthenticationUrl() {
-		String url = "https://www.facebook.com/dialog/oauth?" + "client_id="
-				+ this.appId + "&redirect_uri=" + this.appUrl
-				+ "&scope=user_photos,user_activities,read_stream";
+		String url = "https://www.facebook.com/dialog/oauth?" + "client_id=" + this.appId + "&redirect_uri="
+				+ this.appUrl + "&scope=user_photos,user_activities,read_stream";
 
 		return url;
 
