@@ -11,9 +11,9 @@ import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.facebookapp.model.App;
 import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 
+@SuppressWarnings("serial")
 public class QuestionServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {

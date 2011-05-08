@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kervinramen.spotfinder.facebookapp.model.*;
 
+@SuppressWarnings("serial")
 public class DatabaseServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -26,7 +25,6 @@ public class DatabaseServlet extends HttpServlet {
 
 			dispatcher = req.getRequestDispatcher("/views/database/viewall.jsp");
 
-			// TODO: Make text field show correctly.
 		}
 
 		if (req.getPathInfo().compareTo("/add/") == 0) {

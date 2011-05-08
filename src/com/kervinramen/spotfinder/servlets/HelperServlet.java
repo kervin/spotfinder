@@ -10,10 +10,8 @@ import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 
-
+@SuppressWarnings("serial")
 public class HelperServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/plain");

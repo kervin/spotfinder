@@ -116,7 +116,10 @@ public class FacebookUser {
 	}
 
 	public String getInfoGraphString() {
-		return this.infoGraph.toString();
+		if (this.infoGraph != null)
+			return this.infoGraph.getValue();
+		else 
+			return "";
 	}
 
 	public void setFeedGraph(JSONObject value) {
@@ -132,7 +135,7 @@ public class FacebookUser {
 	}
 
 	public String getFeedGraphString() {
-		return this.feedGraph.toString();
+		return this.feedGraph.getValue();
 	}
 
 	public void setHomeFeedGraph(JSONObject value) {
@@ -151,8 +154,11 @@ public class FacebookUser {
 		return StringHelper.getJSON(this.homeFeedGraph.toString());
 	}
 
-	public Text getHomeFeedGraphString() {
-		return this.homeFeedGraph;
+	public String getHomeFeedGraphString() {
+		if (this.homeFeedGraph != null)
+			return this.homeFeedGraph.getValue();
+		else 
+			return "";
 	}
 
 	// Constructor
@@ -200,7 +206,7 @@ public class FacebookUser {
 		this.userId = (String) result.getProperty("userId");
 		this.username = (String) result.getProperty("username");
 		this.createdOn = (Date) result.getProperty("createdOn");
-		this.infoGraph = (Text) result.getProperty("infoGraph");
+		this.infoGraph = (Text) result.getProperty("setInfoGraph");
 		this.feedGraph = (Text) result.getProperty("feedGraph");
 		this.homeFeedGraph = (Text) result.getProperty("homeFeedGraph");
 
