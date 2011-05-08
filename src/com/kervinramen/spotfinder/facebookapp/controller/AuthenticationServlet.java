@@ -16,8 +16,6 @@ public class AuthenticationServlet extends HttpServlet {
 			throws IOException {
 		resp.setContentType("text/plain");
 		resp.getWriter().println("Hello, there");
-		
-		 
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
