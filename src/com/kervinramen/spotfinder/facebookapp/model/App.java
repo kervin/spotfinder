@@ -16,7 +16,7 @@ public class App {
 
 	// Attributes
 	private String appId = "189720214400755";
-	private String appKey = "e14a34fa3bf641ea83d9b118b0b0a604";
+	//private String appKey = "e14a34fa3bf641ea83d9b118b0b0a604";
 	private String appSecret = "1cac42f937ba7b9998e195ef416d0f79";
 	private String appUrl = "http://apps.facebook.com/places-kervin/question";
 	private String accessToken;

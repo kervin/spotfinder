@@ -1,7 +1,6 @@
 package com.kervinramen.spotfinder.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +26,7 @@ public class DatabaseServlet extends HttpServlet {
 
 			dispatcher = req.getRequestDispatcher("/views/database/viewall.jsp");
 
-			//TODO: Make text field show correctly.
+			// TODO: Make text field show correctly.
 		}
 
 		if (req.getPathInfo().compareTo("/add/") == 0) {

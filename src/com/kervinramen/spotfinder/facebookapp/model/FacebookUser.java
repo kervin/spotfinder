@@ -11,15 +11,16 @@ import java.util.Date;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.repackaged.org.json.JSONObject;
-
-import com.kervinramen.spotfinder.helpers.PMF;
-import com.kervinramen.spotfinder.helpers.StringHelper;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+
+
+import com.kervinramen.spotfinder.helpers.PMF;
+import com.kervinramen.spotfinder.helpers.StringHelper;
+
 
 /**
  * This class contains all the user information that is obtained from Facebook
@@ -49,18 +50,16 @@ public class FacebookUser {
 	@Persistent
 	private Date createdOn;
 
+	// Stores the user information, name, id, activities..
 	@Persistent
-	// This graph stores the user information of the
-	// user such as name, id, activities, jobs
 	public Text infoGraph;
 
+	// Stores user's feeds (status,tags updates from the user)
 	@Persistent
-	// This graph stored the user's feeds, all the status
-	// updates of pic tags from the user
 	private Text feedGraph;
 
+	// Stores friends feeds towards the user
 	@Persistent
-	// Friends' feed towards the user
 	private Text homeFeedGraph;
 
 	public void setId(Key id) {
@@ -168,6 +167,7 @@ public class FacebookUser {
 	}
 
 	public void save() {
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		try {
