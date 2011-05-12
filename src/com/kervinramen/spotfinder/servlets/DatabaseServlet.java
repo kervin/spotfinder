@@ -1,12 +1,10 @@
 package com.kervinramen.spotfinder.servlets;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.kervinramen.spotfinder.facebookapp.model.*;
 
 @SuppressWarnings("serial")
@@ -51,7 +49,6 @@ public class DatabaseServlet extends HttpServlet {
 			user.setAccessToken("test");
 
 			user.save();
-
 		}
 
 		resp.getWriter().append("user Saved");
