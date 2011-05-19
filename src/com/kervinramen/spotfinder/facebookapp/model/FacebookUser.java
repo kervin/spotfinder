@@ -206,7 +206,7 @@ public class FacebookUser {
 		this.userId = (String) result.getProperty("userId");
 		this.username = (String) result.getProperty("username");
 		this.createdOn = (Date) result.getProperty("createdOn");
-		this.infoGraph = (Text) result.getProperty("setInfoGraph");
+		this.infoGraph = (Text) result.getProperty("infoGraph");
 		this.feedGraph = (Text) result.getProperty("feedGraph");
 		this.homeFeedGraph = (Text) result.getProperty("homeFeedGraph");
 

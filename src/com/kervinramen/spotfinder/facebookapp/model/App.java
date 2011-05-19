@@ -15,10 +15,9 @@ import com.kervinramen.spotfinder.helpers.StringHelper;
 public class App {
 
 	// Attributes
-	private String appId = "189720214400755";
-	//private String appKey = "e14a34fa3bf641ea83d9b118b0b0a604";
-	private String appSecret = "1cac42f937ba7b9998e195ef416d0f79";
-	private String appUrl = "http://apps.facebook.com/places-kervin/question";
+	private String appId = "220847734607402";
+	private String appSecret = "151ca6ef6213be7a5608fb229ae82d4f";
+	private String appUrl = "http://apps.facebook.com/spotfinder/question";
 	private String accessToken;
 	private String code;
 
@@ -36,7 +35,7 @@ public class App {
 
 	/**
 	 * This url is when the user is wrongly authenticated and thus redirected to
-	 * logn
+	 * login
 	 * 
 	 * @return
 	 */

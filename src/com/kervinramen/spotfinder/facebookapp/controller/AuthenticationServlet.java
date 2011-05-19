@@ -12,17 +12,21 @@ import com.kervinramen.spotfinder.facebookapp.model.App;
 public class AuthenticationServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("text/plain");
-		resp.getWriter().println("Hello, there");
+		App app = new App("");
+		String authUrl = app.getAuthenticationUrl();
+		resp.getWriter().println("<script>top.location.href='" + authUrl + "'</script>");
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("text/plain");
+		resp.setContentType("text/html");
 
 		App app = new App("");
 		String authUrl = app.getAuthenticationUrl();
-
-		resp.sendRedirect(authUrl);
+		req.setAttribute("authUrl", authUrl);
+//		dispatcher = req.getRequestDispatcher("/views/facebookapp/authenticate.jsp");
+		
+		resp.getWriter().println("<script>top.location.href='" + authUrl + "'</script>");
+		//resp.sendRedirect(authUrl);
 
 	}
 

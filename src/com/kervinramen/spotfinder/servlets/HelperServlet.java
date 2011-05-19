@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
+import com.kervinramen.spotfinder.finder.model.InfoCompare;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 
 @SuppressWarnings("serial")
@@ -50,6 +51,12 @@ public class HelperServlet extends HttpServlet {
 					.getResponse("https://graph.facebook.com/me?access_token=2227470867|2.ChW5v1sV5Im1i3L6jgwLuQ__.3600.1301940000-614080403|pX4D-3prlazqiCt6Jl8WQhyVbs0");
 
 			resp.getWriter().println(info);
+		}
+		
+		if (req.getParameter("cmd").compareTo("compare") == 0) {
+			
+			InfoCompare compare = new InfoCompare();
+			compare.calculateKervin();
 		}
 
 
