@@ -1,7 +1,19 @@
 Spotfinder is an application that uses Facebook information in order 
 to predict user preferences.
 
-A Facebook application is created to get information and rating of 
-users and a finder program that uses an innovative comparing algorithm 
-to deduce taste.  Then places of interests can be proposed based on 
-best friends' rating.
+1. A Facebook application is created to get information and rating of 
+users and other social information about the users.
+
+2. A finder program with ab innovative comparing algorithm uses social
+information to deduce relationship strength. Then Spotfinder can proposed 
+places that have greater change of the user linking it based on friends' 
+ratings and relationship strength.
+
+This project is written by Kervin Ramen as part of his MSc project at 
+the University of Mauritius.
+
+About Kervin Ramen
+Website: http://www.kervinramen.com
+Email: mail@kervinramen.com
+LinkedIn: http://mu.linkedin.com/in/kervinramen
+Facebook: http://www.facebook.com/kervin.ramen

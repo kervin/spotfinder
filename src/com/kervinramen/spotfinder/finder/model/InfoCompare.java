@@ -4,6 +4,12 @@ import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.User;
 
+/**
+ * Compares just the attributes of the users
+ * 
+ * @author Kervin Ramen
+ *
+ */
 public class InfoCompare {
 
 	public InfoCompare() {

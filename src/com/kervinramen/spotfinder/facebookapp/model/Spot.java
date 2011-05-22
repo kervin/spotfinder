@@ -7,7 +7,7 @@ package com.kervinramen.spotfinder.facebookapp.model;
  * This may evolve into a dynamic class in the future where the places are
  * fetched from a web service.
  * 
- * @author kervin
+ * @author Kervin Ramen
  * 
  */
 public class Spot {

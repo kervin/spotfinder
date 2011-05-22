@@ -26,7 +26,7 @@ import com.kervinramen.spotfinder.helpers.StringHelper;
  * This class contains all the user information that is obtained from Facebook
  * that is stored
  * 
- * @author kervin
+ * @author Kervin Ramen
  * 
  */
 @PersistenceCapable

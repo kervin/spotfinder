@@ -9,7 +9,7 @@ import com.kervinramen.spotfinder.helpers.StringHelper;
  * information from the dashboard of facebook It also queries facebook for
  * information
  * 
- * @author kervin
+ * @author Kervin Ramen
  * 
  */
 public class App {
