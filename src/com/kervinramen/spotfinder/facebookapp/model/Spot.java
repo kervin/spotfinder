@@ -1,11 +1,11 @@
 package com.kervinramen.spotfinder.facebookapp.model;
 
 /**
- * This class stores the places that will have ratings on spotfinder. Each place
- * will be an instance of this class
+ * This class stores the places that will have ratings on Spotfinder. 
+ * Each place will be an instance of this class
  * 
- * This may evolve into a dynamic class in the future where the places are
- * fetched from a web service.
+ * This may evolve into a dynamic class in the future where the places 
+ * are fetched from a web service.
  * 
  * @author Kervin Ramen
  * 
