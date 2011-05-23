@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
+import com.kervinramen.spotfinder.finder.model.HomeFeedCompare;
 
 @SuppressWarnings("serial")
 public class RelationServlet extends HttpServlet {
@@ -23,6 +24,9 @@ public class RelationServlet extends HttpServlet {
 		resp.getWriter().println(user.getHomeFeedGraph().toString());
 		
 		user.runQuery("");
+		
+		HomeFeedCompare compare = new HomeFeedCompare();
+		compare.sandboxGraph();
 		
 	}
 
