@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONObject;
+import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.kervinramen.spotfinder.facebookapp.model.App;
-import com.kervinramen.spotfinder.facebookapp.model.FacebookUser;
 
 @SuppressWarnings("serial")
 public class QuestionServlet extends HttpServlet {

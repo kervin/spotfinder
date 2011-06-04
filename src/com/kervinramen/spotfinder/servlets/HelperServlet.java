@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.kervinramen.spotfinder.finder.model.InfoCompare;
+import com.kervinramen.spotfinder.Indexer.model.CompareInfo;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 
 @SuppressWarnings("serial")
@@ -55,7 +55,7 @@ public class HelperServlet extends HttpServlet {
 		
 		if (req.getParameter("cmd").compareTo("compare") == 0) {
 			
-			InfoCompare compare = new InfoCompare();
+			CompareInfo compare = new CompareInfo();
 			compare.calculateKervin();
 		}
 

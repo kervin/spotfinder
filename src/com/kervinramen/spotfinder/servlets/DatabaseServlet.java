@@ -5,6 +5,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kervinramen.spotfinder.base.model.FacebookUser;
+import com.kervinramen.spotfinder.base.model.FacebookUsers;
 import com.kervinramen.spotfinder.facebookapp.model.*;
 
 @SuppressWarnings("serial")
