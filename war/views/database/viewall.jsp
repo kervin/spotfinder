@@ -1,4 +1,4 @@
-<%@ page import="com.kervinramen.spotfinder.facebookapp.model.*"%>
+<%@ page import="com.kervinramen.spotfinder.base.model.*"%>
 <%@ page import="java.util.*"%>
 
 <html>
