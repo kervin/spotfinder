@@ -82,7 +82,7 @@ public class DefaultJsonMapper implements JsonMapper {
        * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String,
        *      java.lang.Class, java.lang.Exception)
        */
-      @Override
+      
       public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
         return false;
       }
@@ -109,7 +109,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
    */
-  @Override
+  
   public <T> List<T> toJavaList(String json, Class<T> type) {
     if (type == null)
       throw new FacebookJsonMappingException("You must specify the Java type to map to.");
@@ -190,7 +190,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)
    */
-  @Override
+  
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
     if (isBlank(json))
@@ -377,7 +377,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJson(java.lang.Object)
    */
-  @Override
+  
   public String toJson(Object object) {
     // Delegate to recursive method
     return toJsonInternal(object).toString();

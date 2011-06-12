@@ -137,7 +137,7 @@ abstract class BaseFacebookClient {
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
      *      java.lang.String, java.lang.String)
      */
-    @Override
+    
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
         return new FacebookOAuthException(String.valueOf(errorCode), message);

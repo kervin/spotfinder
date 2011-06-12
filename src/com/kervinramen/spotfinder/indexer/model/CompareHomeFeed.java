@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.Indexer.model;
+package com.kervinramen.spotfinder.indexer.model;
 
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.graph.*;
@@ -33,19 +33,19 @@ public class CompareHomeFeed implements ICompare {
         
     }
 
-    @Override
+    
     public int getToCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    @Override
+    
     public int getFromCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    @Override
+    
     public int getSameCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;

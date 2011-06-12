@@ -175,7 +175,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * @see com.restfb.FacebookClient#deleteObject(java.lang.String)
    */
-  @Override
+  
   public boolean deleteObject(String object) {
     verifyParameterPresence("object", object);
     return "true".equals(makeRequest(object, true, true, null));
@@ -185,7 +185,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchConnection(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
@@ -196,13 +196,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String,
    *      java.lang.Class)
    */
-  @Override
+  
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson = makeRequestAndProcessResponse(new Requestor() {
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
-      @Override
+      
       public Response makeRequest() throws IOException {
         return webRequestor.executeGet(connectionPageUrl);
       }
@@ -243,7 +243,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
@@ -254,7 +254,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchObjects(java.util.List,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
@@ -292,7 +292,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      java.io.InputStream, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachment, parameters), objectType);
@@ -302,7 +302,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, null, parameters);
   }
@@ -311,7 +311,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   @SuppressWarnings("unchecked")
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("objectType", objectType);
@@ -352,7 +352,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
@@ -372,7 +372,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
    *      java.lang.String, java.lang.String[])
    */
-  @Override
   public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys) {
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("secretKey", secretKey);
@@ -446,7 +445,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
-      @Override
+      
       public Response makeRequest() throws IOException {
         return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachment) : webRequestor
           .executeGet(fullEndpoint + "?" + parameterString);
@@ -570,7 +569,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
      *      java.lang.String, java.lang.String)
      */
-    @Override
+    
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
         return new FacebookOAuthException(type, message);
@@ -619,7 +618,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
    */
-  @Override
+  
   protected String createEndpointForApiCall(String apiCall) {
     trimToEmpty(apiCall).toLowerCase();
     while (apiCall.startsWith("/"))
@@ -641,7 +640,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
-  @Override
+  
   protected String getFacebookReadOnlyEndpointUrl() {
     return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }

@@ -208,7 +208,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
    *      com.restfb.Parameter[])
    */
-  @Override
+  
   public void execute(String method, Parameter... parameters) {
     execute(method, (String) null, parameters);
   }
@@ -217,7 +217,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
    *      java.lang.String, com.restfb.Parameter[])
    */
-  @Override
+  
   public void execute(String method, String sessionKey, Parameter... parameters) {
     makeRequest(method, sessionKey, parameters);
   }
@@ -226,7 +226,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T execute(String method, Class<T> resultType, Parameter... parameters) {
     return execute(method, null, resultType, parameters);
   }
@@ -235,7 +235,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
     return jsonMapper.toJavaObject(makeRequest(method, sessionKey, parameters), resultType);
   }
@@ -244,7 +244,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters) {
     return executeForList(method, null, resultType, parameters);
   }
@@ -253,7 +253,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
     return jsonMapper.toJavaList(makeRequest(method, sessionKey, parameters), resultType);
   }
@@ -262,7 +262,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters) {
     return executeMultiquery(queries, resultType, additionalParameters);
   }
@@ -271,7 +271,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
-  @Override
+  
   public <T> T executeMultiquery(Map<String, String> queries, String sessionKey, Class<T> resultType,
       Parameter... additionalParameters) {
     List<Parameter> parameters = new ArrayList<Parameter>();
@@ -482,7 +482,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   /**
    * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
    */
-  @Override
+  
   protected String createEndpointForApiCall(String apiCall) {
     apiCall = trimToEmpty(apiCall).toLowerCase();
     return readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl() : getFacebookRestEndpointUrl();
@@ -508,7 +508,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   /**
    * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
-  @Override
+  
   protected String getFacebookReadOnlyEndpointUrl() {
     return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }

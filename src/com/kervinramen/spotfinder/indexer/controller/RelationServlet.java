@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.Indexer.controller;
+package com.kervinramen.spotfinder.indexer.controller;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kervinramen.spotfinder.Indexer.model.CompareHomeFeed;
+import com.kervinramen.spotfinder.indexer.model.CompareHomeFeed;
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 
 @SuppressWarnings("serial")

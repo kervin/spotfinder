@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.Indexer.model;
+package com.kervinramen.spotfinder.indexer.model;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdGeneratorStrategy;

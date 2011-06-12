@@ -77,7 +77,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
-  @Override
+  
   public Response executeGet(String url) throws IOException {
     if (logger.isLoggable(INFO))
       logger.info("Making a GET request to " + url);
@@ -119,7 +119,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
    *      java.lang.String)
    */
-  @Override
+  
   public Response executePost(String url, String parameters) throws IOException {
     return executePost(url, parameters, null);
   }
@@ -128,7 +128,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
    *      java.lang.String, java.io.InputStream)
    */
-  @Override
+  
   public Response executePost(String url, String parameters, InputStream binaryAttachment) throws IOException {
     boolean hasBinaryAttachment = binaryAttachment != null;
 

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.kervinramen.spotfinder.Indexer.model.CompareInfo;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
+import com.kervinramen.spotfinder.indexer.model.CompareInfo;
 
 @SuppressWarnings("serial")
 public class HelperServlet extends HttpServlet {

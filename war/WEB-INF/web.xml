@@ -64,7 +64,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
 	<servlet>
 		<servlet-name>Relation</servlet-name>
-		<servlet-class>com.kervinramen.spotfinder.finder.controller.RelationServlet</servlet-class>
+		<servlet-class>com.kervinramen.spotfinder.indexer.controller.RelationServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

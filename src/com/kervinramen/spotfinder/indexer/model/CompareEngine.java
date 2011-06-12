@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.Indexer.model;
+package com.kervinramen.spotfinder.indexer.model;
 
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 

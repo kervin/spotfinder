@@ -1,7 +1,7 @@
 
 package com.kervinramen.spotfinder.engine.model;
 
-import com.kervinramen.spotfinder.Indexer.model.CompareHomeFeed;
+import com.kervinramen.spotfinder.indexer.model.CompareHomeFeed;
 
 import junit.framework.TestCase;
 

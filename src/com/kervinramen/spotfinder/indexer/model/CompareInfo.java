@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.Indexer.model;
+package com.kervinramen.spotfinder.indexer.model;
 
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.restfb.DefaultJsonMapper;
@@ -54,19 +54,19 @@ public class CompareInfo implements ICompare {
 		return calculateScore("kervin.ramen", "kevina.choolhun");
 	}
 
-    @Override
+    
     public int getToCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    @Override
+    
     public int getFromCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    @Override
+    
     public int getSameCount(FacebookUser user1, FacebookUser user2) {
         // TODO Auto-generated method stub
         return 0;
