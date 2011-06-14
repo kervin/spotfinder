@@ -18,10 +18,12 @@ public class SpotServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = null;
         
+        // add
         if (req.getPathInfo().compareTo("/add/") == 0) {
             dispatcher = req.getRequestDispatcher("/views/facebookapp/spot/add.jsp"); 
         }
         
+        // view all and one item
         if(req.getPathInfo().compareTo("/") == 0) {
             String spotId =(String)req.getParameter("spotid");
             
@@ -40,8 +42,8 @@ public class SpotServlet extends HttpServlet {
                 
                 dispatcher = req.getRequestDispatcher("/views/facebookapp/spot/edit.jsp");
             }
-            
         }
+        
         
         try {
             if (dispatcher != null)
@@ -65,7 +67,21 @@ public class SpotServlet extends HttpServlet {
             spot.save();
         }
 
-        resp.getWriter().append("user Saved");
+        
+        // update
+        if(req.getPathInfo().contains("/update/")) {
+            Spot spot = new Spot();
+            spot.setSpotId(Long.parseLong(req.getParameter("spotid")));
+            spot.setName(req.getParameter("name"));
+            spot.setDescription(req.getParameter("description"));
+            spot.setLocation(req.getParameter("location"));
+            spot.setImage(req.getParameter("image"));
+            
+            spot.save();
+            
+        }
+            
+        resp.getWriter().append("Spot Saved");
     }
 
 }

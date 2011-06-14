@@ -138,4 +138,9 @@ public class Spot {
         this.image = (String) result.getProperty("image");
         
     }
+
+    public void update() {
+
+        
+    }
 }

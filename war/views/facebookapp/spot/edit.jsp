@@ -17,8 +17,8 @@
     %>
 
     <h1>Edit spot</h1>
-    <form method="post" " action="/spot/add/new/">
-        <input type="hidden" name="spotid" value="" />
+    <form method="post" " action="/spot/update/">
+        <input type="hidden" name="spotid" value="<%=spot.getSpotId()%>" />
         
         <table>
             <tr>
@@ -28,20 +28,21 @@
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input type="text" name="description" id="description" />
+                <td><input type="text" name="description" id="description" value="<%= spot.getDescription() %>"/>
                 </td>
             </tr>
             <tr>
                 <td>Location:</td>
-                <td><input type="text" name="location" id="location" />
+                <td><input type="text" name="location" id="location" value="<%= spot.getLocation() %>"/>
                 </td>
             </tr>
             <tr>
                 <td>Image:</td>
-                <td><input type="text" name="image" id="image" />
+                <td><input type="text" name="image" id="image" value="<%= spot.getImage() %>"/>
                 </td>
             </tr>
         </table>
+        <input type="submit" value="Save spot" />
 
     </form>
 </body>
