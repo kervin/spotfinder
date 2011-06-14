@@ -1,4 +1,4 @@
-body{ font-family: 'Ubuntu', serif; font-size: 16px; }
+
 .container { width: 100%; border: 2px solid black; overflow: hidden; }
 
 .box { float: left; height: 338px; margin: 5px; position: relative; width: 220px; background-color: white;

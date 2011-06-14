@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Rate Places of Interest in Spotfinder</title>
+    <link rel="StyleSheet" href="/css/common.css" type="text/css">
     <link rel="StyleSheet" href="/css/questions.css" type="text/css">
      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
      

@@ -14,41 +14,41 @@ import com.kervinramen.spotfinder.facebookapp.model.App;
 @SuppressWarnings("serial")
 public class QuestionServlet extends HttpServlet {
 
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+      
+        resp.setContentType("text/plain");
+        resp.getWriter().println("You have successfully been authenticated!!");
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+        String code = req.getParameter("code");
+        App app = new App(code);
 
-		resp.setContentType("text/plain");
-		resp.getWriter().println("You have successfully been authenticated!!");
+        if (code == null || code.isEmpty()) {
+            // Redirect in case of error
+            resp.sendRedirect(app.getDialogUrl());
+        }
 
-		String code = req.getParameter("code");
-		App app = new App(code);
+        // Queries the graph for information
+        JSONObject userInfo = app.getBasicGraph();
 
-		if (code == null || code.isEmpty()) {
-			// Redirect in case of error
-			resp.sendRedirect(app.getDialogUrl());
-		}
+        FacebookUser user = new FacebookUser();
+        user.setAccessToken(app.getAccessToken());
+        user.setUserId(userInfo.optString("id"));
+        user.setUsername(userInfo.optString("username"));
+        user.setInfoGraph(userInfo);
+        user.setFeedGraph(app.getFeedGraph());
+        user.setHomeFeedGraph(app.getHomeGraph());
 
-		// Queries the graph for information
-		JSONObject userInfo = app.getBasicGraph();
+        user.save();
+        
+        // save userid in session
+        req.getSession().setAttribute("userid", user.getUserId());
 
-		FacebookUser user = new FacebookUser();
-		user.setAccessToken(app.getAccessToken());
-		user.setUserId(userInfo.optString("id"));
-		user.setUsername(userInfo.optString("username"));
-		user.setInfoGraph(userInfo);
-		user.setFeedGraph(app.getFeedGraph());
-		user.setHomeFeedGraph(app.getHomeGraph());
+        resp.getWriter().println("Hello there, " + user.getUsername());
 
-		user.save();
+    }
 
-		resp.getWriter().println("Hello there, " + user.getUsername());
-
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		doGet(request, response);
-	}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doGet(request, response);
+    }
 
 }

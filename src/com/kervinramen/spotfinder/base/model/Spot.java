@@ -1,5 +1,23 @@
 package com.kervinramen.spotfinder.base.model;
 
+import java.util.Date;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.annotations.Extension;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Text;
+import com.kervinramen.spotfinder.helpers.PMF;
+
 /**
  * This class stores the places that will have ratings on Spotfinder. 
  * Each place will be an instance of this class
@@ -10,21 +28,31 @@ package com.kervinramen.spotfinder.base.model;
  * @author Kervin Ramen
  * 
  */
+@PersistenceCapable
 public class Spot {
 
-    /**
-     * Id of the spot
-     */
-    private int spotId;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String encodedKey;
+
     
+    /**
+     * The long part of the key
+     */
+    @Persistent
+    @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
+    private Long spotId;
     /** 
      * Name of the spot
      */
+    @Persistent
 	private String name;
 
 	/**
 	 * Gmaps location
 	 */
+    @Persistent
 	private String location;
 
 	/**
@@ -36,15 +64,16 @@ public class Spot {
 	 * Image of the spot, 
 	 * place in /media/
 	 */
+	@Persistent
 	private String image;
-	
-	
-	public void setSpotId(int spotId) {
-        this.spotId = spotId;
-    }
 
-    public int getSpotId() {
-        return spotId;
+    
+    public Long getSpotId() {
+        return this.spotId;
+    }
+    
+    public void setSpotId(Long value) {
+        this.spotId = value;
     }
 
     public String getName() {
@@ -79,9 +108,34 @@ public class Spot {
         return image;
     }
 
-    public Spot(String name, String location) {
-		this.name = name;
-		this.location = location;
+    public Spot() {
+    }
+    
+    /**
+     * Saves this object to database
+     */
+    public void save() {
+        PersistenceManager pm = PMF.get().getPersistenceManager();
+        
+        try {
+            pm.makePersistent(this);
+        } finally {
+            pm.close();
+        }
+    }
 
-	}
+
+    /**
+     * Parses a database entity into a spot
+     * 
+     * @param result
+     */
+    public void parseEntity(Entity result) {
+        this.spotId = result.getKey().getId();
+        this.name = (String) result.getProperty("name");
+        this.description = (String) result.getProperty("description");
+        this.location = (String) result.getProperty("location");
+        this.image = (String) result.getProperty("image");
+        
+    }
 }
