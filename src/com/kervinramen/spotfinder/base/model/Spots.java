@@ -46,9 +46,7 @@ public class Spots {
             
             this.spots.add(spot);
         }
-        
     }
-    
     
     /**
      * Searches for a particular spot
@@ -62,14 +60,15 @@ public class Spots {
         return spot;
         
         /*
-          Query query = entityManager.createQuery(
+        Query query = entityManager.createQuery(
             "SELECT m FROM MyEntity m WHERE id = :id");
-                query.setParameter("id", yourId);
+        query.setParameter("id", yourId);
 
-            MyEntity yourEntity = (MyEntity) query.getSingleResult();
+        MyEntity yourEntity = (MyEntity) query.getSingleResult();
           
-         */
-       /*
+        */
+        
+        /*
         Spot spot = new Spot();
         // Get the Datastore Service
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

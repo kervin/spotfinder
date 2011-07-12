@@ -54,14 +54,23 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String products;
 
+  @Deprecated
   @Facebook("fan_count")
   private Long fanCount;
+
+  @Facebook
+  private Long likes;
 
   @Facebook("is_community_page")
   private Boolean isCommunityPage;
 
   @Facebook
   private String description;
+
+  @Facebook("access_token")
+  private String accessToken;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The page's picture.
@@ -129,10 +138,21 @@ public class Page extends CategorizedFacebookType {
   /**
    * The number of fans the page has.
    * 
+   * @deprecated In favor of {@link #getLikes()}.
    * @return The number of fans the page has.
    */
   public Long getFanCount() {
     return fanCount;
+  }
+
+  /**
+   * The number of likes the page has.
+   * 
+   * @return The number of likes the page has.
+   * @since 1.6.5
+   */
+  public Long getLikes() {
+    return likes;
   }
 
   /**
@@ -151,5 +171,18 @@ public class Page extends CategorizedFacebookType {
    */
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * The access token specific to this page.
+   * <p>
+   * This value will only be available for pages if the application accessing
+   * this page has been given {@code manage_page} permissions.
+   * 
+   * @return The access token specific to this page.
+   * @since 1.6.5
+   */
+  public String getAccessToken() {
+    return accessToken;
   }
 }

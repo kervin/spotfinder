@@ -34,6 +34,7 @@ import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.FINEST;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -82,7 +83,7 @@ public class DefaultJsonMapper implements JsonMapper {
        * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String,
        *      java.lang.Class, java.lang.Exception)
        */
-      
+      @Override
       public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
         return false;
       }
@@ -109,7 +110,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
    */
-  
+  @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
     if (type == null)
       throw new FacebookJsonMappingException("You must specify the Java type to map to.");
@@ -190,7 +191,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)
    */
-  
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
     if (isBlank(json))
@@ -377,10 +378,18 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * @see com.restfb.JsonMapper#toJson(java.lang.Object)
    */
-  
+  @Override
   public String toJson(Object object) {
     // Delegate to recursive method
-    return toJsonInternal(object).toString();
+    return toJsonInternal(object, false).toString();
+  }
+
+  /**
+   * @see com.restfb.JsonMapper#toJson(java.lang.Object, boolean)
+   */
+  @Override
+  public String toJson(Object object, boolean ignoreNullValuedProperties) {
+    return toJsonInternal(object, ignoreNullValuedProperties).toString();
   }
 
   /**
@@ -390,18 +399,21 @@ public class DefaultJsonMapper implements JsonMapper {
    * 
    * @param object
    *          The object to marshal.
+   * @param ignoreNullValuedProperties
+   *          If this is {@code true}, no Javabean properties with {@code null}
+   *          values will be included in the generated JSON.
    * @return JSON representation of the given {@code object}.
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
    */
-  protected Object toJsonInternal(Object object) {
+  protected Object toJsonInternal(Object object, boolean ignoreNullValuedProperties) {
     if (object == null)
       return NULL;
 
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)
-        jsonArray.put(toJsonInternal(o));
+        jsonArray.put(toJsonInternal(o, ignoreNullValuedProperties));
 
       return jsonArray;
     }
@@ -414,7 +426,7 @@ public class DefaultJsonMapper implements JsonMapper {
               + " in order to be converted to JSON.  Offending map is " + object);
 
         try {
-          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue()));
+          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
         } catch (JsonException e) {
           throw new FacebookJsonMappingException("Unable to process value '" + entry.getValue() + "' for key '"
               + entry.getKey() + "' in Map " + object, e);
@@ -452,7 +464,10 @@ public class DefaultJsonMapper implements JsonMapper {
       fieldWithAnnotation.getField().setAccessible(true);
 
       try {
-        jsonObject.put(facebookFieldName, toJsonInternal(fieldWithAnnotation.getField().get(object)));
+        Object fieldValue = fieldWithAnnotation.getField().get(object);
+
+        if (!(ignoreNullValuedProperties && fieldValue == null))
+          jsonObject.put(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
       } catch (Exception e) {
         throw new FacebookJsonMappingException("Unable to process field '" + facebookFieldName + "' for "
             + object.getClass(), e);
@@ -608,6 +623,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
   /**
    * Creates a new instance of the given {@code type}.
+   * <p>
+   * 
    * 
    * @param <T>
    *          Java type to map to.
@@ -616,18 +633,25 @@ public class DefaultJsonMapper implements JsonMapper {
    * @return A new instance of {@code type}.
    * @throws FacebookJsonMappingException
    *           If an error occurs when creating a new instance ({@code type} is
-   *           inaccessible, doesn't have a public no-arg constructor, etc.)
+   *           inaccessible, doesn't have a no-arg constructor, etc.)
    */
   protected <T> T createInstance(Class<T> type) {
     String errorMessage =
-        "Unable to create an instance of " + type + ". Please make sure that it's marked 'public' "
-            + "and, if it's a nested class, is marked 'static'. " + "It should have a public, no-argument constructor.";
+        "Unable to create an instance of " + type
+            + ". Please make sure that if it's a nested class, is marked 'static'. "
+            + "It should have a no-argument constructor.";
 
     try {
-      return type.newInstance();
-    } catch (IllegalAccessException e) {
-      throw new FacebookJsonMappingException(errorMessage, e);
-    } catch (InstantiationException e) {
+      Constructor<T> defaultConstructor = type.getDeclaredConstructor();
+
+      if (defaultConstructor == null)
+        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);
+
+      // Allows protected, private, and package-private constructors to be
+      // invoked
+      defaultConstructor.setAccessible(true);
+      return defaultConstructor.newInstance();
+    } catch (Exception e) {
       throw new FacebookJsonMappingException(errorMessage, e);
     }
   }

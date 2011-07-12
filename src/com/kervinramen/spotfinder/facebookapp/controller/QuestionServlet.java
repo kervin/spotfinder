@@ -1,5 +1,6 @@
 package com.kervinramen.spotfinder.facebookapp.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
@@ -9,41 +10,59 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.base.model.FacebookUser;
+import com.kervinramen.spotfinder.base.model.Spots;
 import com.kervinramen.spotfinder.facebookapp.model.App;
 
 @SuppressWarnings("serial")
 public class QuestionServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-      
-        resp.setContentType("text/plain");
-        resp.getWriter().println("You have successfully been authenticated!!");
+        String testMode = req.getParameter("testmode");
+        if (testMode == null) {
+            String code = req.getParameter("code");
+            App app = new App(code);
 
-        String code = req.getParameter("code");
-        App app = new App(code);
+            if (code == null || code.isEmpty()) {
+                // Redirect in case of error
+                resp.sendRedirect(app.getDialogUrl());
+            }
 
-        if (code == null || code.isEmpty()) {
-            // Redirect in case of error
-            resp.sendRedirect(app.getDialogUrl());
+            // Queries the graph for information
+            JSONObject userInfo = app.getBasicGraph();
+
+            FacebookUser user = new FacebookUser();
+            user.setAccessToken(app.getAccessToken());
+            user.setUserId(userInfo.optString("id"));
+            user.setUsername(userInfo.optString("username"));
+            user.setInfoGraph(userInfo);
+            user.setFeedGraph(app.getFeedGraph());
+            user.setHomeFeedGraph(app.getHomeGraph());
+
+            user.save();
+
+            // save userid in session
+            req.getSession().setAttribute("userid", user.getUserId());
+            
+        } else { 
+            req.getSession().setAttribute("userid", "614080403");
         }
 
-        // Queries the graph for information
-        JSONObject userInfo = app.getBasicGraph();
+        // show questions to the user
+        Spots spots = new Spots();
+        spots.getAllSpots();
 
-        FacebookUser user = new FacebookUser();
-        user.setAccessToken(app.getAccessToken());
-        user.setUserId(userInfo.optString("id"));
-        user.setUsername(userInfo.optString("username"));
-        user.setInfoGraph(userInfo);
-        user.setFeedGraph(app.getFeedGraph());
-        user.setHomeFeedGraph(app.getHomeGraph());
+        // Setting the users obj to the jsp
+        req.setAttribute("spots", spots.spots);
 
-        user.save();
+        RequestDispatcher dispatcher = null;
+        dispatcher = req.getRequestDispatcher("/views/facebookapp/question.jsp");
         
-        // save userid in session
-        req.getSession().setAttribute("userid", user.getUserId());
-
-        resp.getWriter().println("Hello there, " + user.getUsername());
+        try {
+            if (dispatcher != null)
+                dispatcher.forward(req, resp);
+        } catch (Exception ex) {
+            resp.getWriter().append(ex.getMessage());
+        }
 
     }
 

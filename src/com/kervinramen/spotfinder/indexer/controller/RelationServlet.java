@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kervinramen.spotfinder.indexer.model.CompareHomeFeed;
-import com.kervinramen.spotfinder.base.model.FacebookUser;
+import com.kervinramen.spotfinder.indexer.model.IndexEngine;
 
 @SuppressWarnings("serial")
 public class RelationServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
+	    
+	    /*		
 		FacebookUser user = new FacebookUser();
 		user.searchUser("kervin.ramen");
 				
@@ -23,7 +23,15 @@ public class RelationServlet extends HttpServlet {
 		resp.getWriter().println(user.getFeedGraph().toString());
 		resp.getWriter().println(user.getHomeFeedGraph().toString());
 		
-		
+		*/
+	    
+	    IndexEngine indexer = new IndexEngine();
+	    
+	    indexer.start();
+	    
+	    
+	    
+	    
 	}
 
 }

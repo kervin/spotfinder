@@ -25,6 +25,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +60,8 @@ public class Checkin extends FacebookType {
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/checkin">Place
@@ -71,6 +74,8 @@ public class Checkin extends FacebookType {
     @Facebook
     private Location location;
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Represents the <a
      * href="http://developers.facebook.com/docs/reference/api/checkin">Location
@@ -79,12 +84,23 @@ public class Checkin extends FacebookType {
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.6
      */
-    public static class Location {
+    public static class Location implements Serializable {
       @Facebook
       private Double latitude;
 
       @Facebook
       private Double longitude;
+
+      @Facebook
+      private String city;
+
+      @Facebook
+      private String state;
+
+      @Facebook
+      private String country;
+
+      private static final long serialVersionUID = 1L;
 
       /**
        * @see java.lang.Object#hashCode()
@@ -126,6 +142,36 @@ public class Checkin extends FacebookType {
        */
       public Double getLongitude() {
         return longitude;
+      }
+
+      /**
+       * The city of the check-in.
+       * 
+       * @return The city of the check-in.
+       * @since 1.6.5
+       */
+      public String getCity() {
+        return city;
+      }
+
+      /**
+       * The state of the check-in.
+       * 
+       * @return The state of the check-in.
+       * @since 1.6.5
+       */
+      public String getState() {
+        return state;
+      }
+
+      /**
+       * The country of the check-in.
+       * 
+       * @return The country of the check-in.
+       * @since 1.6.5
+       */
+      public String getCountry() {
+        return country;
       }
     }
 

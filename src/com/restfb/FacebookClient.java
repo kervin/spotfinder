@@ -22,11 +22,12 @@
 
 package com.restfb;
 
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.batch.BatchRequest;
+import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.util.ReflectionUtils;
 
@@ -50,8 +51,10 @@ import com.restfb.util.ReflectionUtils;
  * <li>Execute an FQL query: use
  * {@link #executeQuery(String, Class, Parameter...)} or
  * {@link #executeMultiquery(Map, Class, Parameter...)}</li>
+ * <li>Execute operations in batch: use {@link #executeBatch(BatchRequest...)}
+ * or {@link #executeBatch(List, List)}</li>
  * <li>Publish data: use {@link #publish(String, Class, Parameter...)} or
- * {@link #publish(String, Class, InputStream, Parameter...)}</li>
+ * {@link #publish(String, Class, BinaryAttachment, Parameter...)}</li>
  * <li>Delete an object: use {@link #deleteObject(String)}</li>
  * </ul>
  * 
@@ -192,6 +195,33 @@ public interface FacebookClient {
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**
+   * Executes operations as a batch using the <a
+   * href="https://developers.facebook.com/docs/reference/api/batch/">Batch
+   * API</a>.
+   * 
+   * @param batchRequests
+   *          The operations to execute.
+   * @return The execution results in the order in which the requests were
+   *         specified.
+   */
+  List<BatchResponse> executeBatch(BatchRequest... batchRequests);
+
+  /**
+   * Executes operations as a batch with binary attachments using the <a
+   * href="https://developers.facebook.com/docs/reference/api/batch/">Batch
+   * API</a>.
+   * 
+   * @param batchRequests
+   *          The operations to execute.
+   * @param binaryAttachments
+   *          Binary attachments referenced by the batch requests.
+   * @return The execution results in the order in which the requests were
+   *         specified.
+   * @since 1.6.5
+   */
+  List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments);
+
+  /**
    * Performs a <a
    * href="http://developers.facebook.com/docs/api#publishing">Graph API
    * publish</a> operation on the given {@code connection}, mapping the result
@@ -226,7 +256,7 @@ public interface FacebookClient {
    * @param objectType
    *          Object type token.
    * @param binaryAttachment
-   *          The file to include in the publish request - a photo, for example.
+   *          The file to include in the publish request.
    * @param parameters
    *          URL parameters to include in the API call.
    * @return An instance of type {@code objectType} which contains the Facebook
@@ -234,7 +264,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters);
+  <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters);
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph

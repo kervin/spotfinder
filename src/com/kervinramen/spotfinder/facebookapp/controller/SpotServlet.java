@@ -80,8 +80,8 @@ public class SpotServlet extends HttpServlet {
             spot.save();
             
         }
-            
-        resp.getWriter().append("Spot Saved");
+        resp.setContentType("text/html");    
+        resp.getWriter().append("Spot Saved<br /> <a href='/spot/'>View all</a>");
     }
 
 }

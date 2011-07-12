@@ -9,6 +9,5 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-testing.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-api-labs.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-api-stubs.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-api.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

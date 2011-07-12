@@ -10,25 +10,31 @@
 </head>
 <body>
 
-    <%
-        ArrayList<Spot> spots = (ArrayList<Spot>) request.getAttribute("spots");
-
-        for (Spot spot : spots) {
-    %>
     <table border="1">
         <tr>
             <td>Spot Name</td>
-            <td><%=spot.getName()%></td>
-        </tr>
-        <tr>
+            <td>Description</td>
             <td>Action</td>
-            <td><a href="/spot/?spotid=<%= spot.getSpotId() %>">edit</a></td>
         </tr>
-    </table>
 
-    <%
-        }
-    %>
+        <%
+            ArrayList<Spot> spots = (ArrayList<Spot>) request.getAttribute("spots");
+
+            for (Spot spot : spots) {
+        %>
+
+        <tr>
+            <td><%=spot.getName()%></td>
+            <td><%=spot.getDescription()%>
+            <td><a href="/spot/?spotid=<%=spot.getSpotId()%>">edit</a>
+            </td>
+        </tr>
+
+
+        <%
+            }
+        %>
+    </table>
 
 </body>
 </html>

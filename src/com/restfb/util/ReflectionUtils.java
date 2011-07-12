@@ -181,6 +181,7 @@ public final class ReflectionUtils {
       /**
        * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
        */
+      @Override
       public int compare(Method method1, Method method2) {
         return method1.getName().compareTo(method2.getName());
       }
@@ -350,7 +351,7 @@ public final class ReflectionUtils {
     /**
      * @see java.lang.Object#toString()
      */
-    
+    @Override
     public String toString() {
       return format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(), field.getType(),
         annotation);
@@ -390,7 +391,7 @@ public final class ReflectionUtils {
     /**
      * @see java.lang.Object#hashCode()
      */
-    
+    @Override
     public int hashCode() {
       final int prime = 31;
       int result = 1;
@@ -402,7 +403,7 @@ public final class ReflectionUtils {
     /**
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    
+    @Override
     public boolean equals(Object obj) {
       if (this == obj)
         return true;

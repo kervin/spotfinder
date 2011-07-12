@@ -1,5 +1,5 @@
 
-.container { width: 100%; border: 2px solid black; overflow: hidden; }
+.container { width: 100%; border: 0px solid black; overflow: hidden; }
 
 .box { float: left; height: 338px; margin: 5px; position: relative; width: 220px; background-color: white;
 border: 2px solid black; }
@@ -8,3 +8,4 @@ border: 2px solid black; }
 .box-image { width: 160px; }
 .box-rating { width: 100px; padding: 10px 40px; } 
 .box-rating span { float: left; }
+.box-description { font-size: 11px; }

@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
+import static com.restfb.util.StringUtils.urlDecode;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.INFO;
@@ -67,7 +68,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * By default, how long should we wait for a response (in ms)?
    */
-  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 60000;
+  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 180000;
 
   /**
    * Logger.
@@ -77,7 +78,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
-  
+  @Override
   public Response executeGet(String url) throws IOException {
     if (logger.isLoggable(INFO))
       logger.info("Making a GET request to " + url);
@@ -119,30 +120,28 @@ public class DefaultWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
    *      java.lang.String)
    */
-  
+  @Override
   public Response executePost(String url, String parameters) throws IOException {
-    return executePost(url, parameters, null);
+    return executePost(url, parameters, (BinaryAttachment[]) null);
   }
 
   /**
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String, java.io.InputStream)
+   *      java.lang.String, com.restfb.BinaryAttachment[])
    */
-  
-  public Response executePost(String url, String parameters, InputStream binaryAttachment) throws IOException {
-    boolean hasBinaryAttachment = binaryAttachment != null;
-
+  @Override
+  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
     if (logger.isLoggable(INFO))
       logger.info("Executing a POST to " + url + " with parameters "
-          + (hasBinaryAttachment ? "" : "(sent in request body): ") + parameters
-          + (hasBinaryAttachment ? " and a binary attachment." : ""));
+          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
+          + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = openConnection(new URL(url + (hasBinaryAttachment ? "?" + parameters : "")));
+      httpUrlConnection = openConnection(new URL(url + (binaryAttachments.length > 0 ? "?" + parameters : "")));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
@@ -153,7 +152,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
 
-      if (hasBinaryAttachment) {
+      if (binaryAttachments.length > 0) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
@@ -161,19 +160,22 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
 
-      // If we have a binary attachment, the body is just the attachment and the
+      // If we have binary attachments, the body is just the attachments and the
       // other parameters are passed in via the URL.
       // Otherwise the body is the URL parameter string.
-      if (hasBinaryAttachment) {
-        outputStream
-          .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
-              + "Content-Disposition: form-data; filename=\"test.jpg\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
-            .getBytes(ENCODING_CHARSET));
+      if (binaryAttachments.length > 0) {
+        for (BinaryAttachment binaryAttachment : binaryAttachments) {
+          outputStream
+            .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
+                + "Content-Disposition: form-data; name=\"" + createFormFieldName(binaryAttachment) + "\"; filename=\""
+                + binaryAttachment.getFilename() + "\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+              .getBytes(ENCODING_CHARSET));
 
-        write(binaryAttachment, outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
+          write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
 
-        outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
-            + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(ENCODING_CHARSET));
+          outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
+              + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(ENCODING_CHARSET));
+        }
       } else {
         outputStream.write(parameters.getBytes(ENCODING_CHARSET));
       }
@@ -192,7 +194,10 @@ public class DefaultWebRequestor implements WebRequestor {
 
       return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
-      closeQuietly(binaryAttachment);
+      if (binaryAttachments.length > 0)
+        for (BinaryAttachment binaryAttachment : binaryAttachments)
+          closeQuietly(binaryAttachment.getData());
+
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
@@ -292,5 +297,20 @@ public class DefaultWebRequestor implements WebRequestor {
     byte[] chunk = new byte[bufferSize];
     while ((read = source.read(chunk)) > 0)
       destination.write(chunk, 0, read);
+  }
+
+  /**
+   * Creates the form field name for the binary attachment filename by stripping
+   * off the file extension - for example, the filename "test.png" would return
+   * "test".
+   * 
+   * @param binaryAttachment
+   *          The binary attachment for which to create the form field name.
+   * @return The form field name for the given binary attachment.
+   */
+  protected String createFormFieldName(BinaryAttachment binaryAttachment) {
+    String name = binaryAttachment.getFilename();
+    int fileExtensionIndex = name.lastIndexOf(".");
+    return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
   }
 }

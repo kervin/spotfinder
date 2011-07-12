@@ -27,22 +27,26 @@ import static com.restfb.util.StringUtils.join;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
 import static com.restfb.util.StringUtils.urlEncode;
+import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.logging.Level.INFO;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.batch.BatchRequest;
+import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookExceptionMapper;
 import com.restfb.exception.FacebookGraphException;
@@ -83,6 +87,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
 
   /**
+   * Video Upload API endpoint URL.
+   * 
+   * @since 1.6.5
+   */
+  protected static final String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
+
+  /**
    * Reserved method override parameter name.
    */
   protected static final String METHOD_PARAM_NAME = "method";
@@ -121,6 +132,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'message' attribute name.
    */
   protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
+
+  /**
+   * Batch API error response 'error' attribute name.
+   */
+  protected static final String BATCH_ERROR_ATTRIBUTE_NAME = "error";
+
+  /**
+   * Batch API error response 'error_description' attribute name.
+   */
+  protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
 
   /**
    * Creates a Facebook Graph API client with no access token.
@@ -175,7 +196,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * @see com.restfb.FacebookClient#deleteObject(java.lang.String)
    */
-  
+  @Override
   public boolean deleteObject(String object) {
     verifyParameterPresence("object", object);
     return "true".equals(makeRequest(object, true, true, null));
@@ -185,7 +206,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchConnection(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  
+  @Override
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
@@ -196,13 +217,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String,
    *      java.lang.Class)
    */
-  
+  @Override
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson = makeRequestAndProcessResponse(new Requestor() {
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
-      
+      @Override
       public Response makeRequest() throws IOException {
         return webRequestor.executeGet(connectionPageUrl);
       }
@@ -243,7 +264,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  
+  @Override
   public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
@@ -254,7 +275,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchObjects(java.util.List,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
@@ -290,19 +311,25 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
-   *      java.io.InputStream, com.restfb.Parameter[])
+   *      com.restfb.BinaryAttachment, com.restfb.Parameter[])
    */
-  
-  public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters) {
+  @Override
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+      Parameter... parameters) {
     verifyParameterPresence("connection", connection);
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachment, parameters), objectType);
+
+    List<BinaryAttachment> binaryAttachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachment != null)
+      binaryAttachments.add(binaryAttachment);
+
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
   }
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      com.restfb.Parameter[])
    */
-  
+  @Override
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, null, parameters);
   }
@@ -311,7 +338,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("objectType", objectType);
@@ -352,7 +379,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
-  
+  @Override
   public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
@@ -369,9 +396,33 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.FacebookClient#executeBatch(com.restfb.batch.BatchRequest[])
+   */
+  @Override
+  public List<BatchResponse> executeBatch(BatchRequest... batchRequests) {
+    return executeBatch(asList(batchRequests), Collections.<BinaryAttachment> emptyList());
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeBatch(java.util.List, java.util.List)
+   */
+  @Override
+  public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments) {
+    verifyParameterPresence("binaryAttachments", binaryAttachments);
+
+    if (batchRequests == null || batchRequests.size() == 0)
+      throw new IllegalArgumentException("You must specify at least one batch request.");
+
+    return jsonMapper.toJavaList(
+      makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests, true))),
+      BatchResponse.class);
+  }
+
+  /**
    * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
    *      java.lang.String, java.lang.String[])
    */
+  @Override
   public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys) {
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("secretKey", secretKey);
@@ -428,7 +479,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           processing the response.
    */
   protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
-      final InputStream binaryAttachment, Parameter... parameters) {
+      final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete)
@@ -438,17 +489,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    final String fullEndpoint = createEndpointForApiCall(endpoint);
+    final String fullEndpoint =
+        createEndpointForApiCall(endpoint, binaryAttachments != null && binaryAttachments.size() > 0);
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(new Requestor() {
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
-      
+      @Override
       public Response makeRequest() throws IOException {
-        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachment) : webRequestor
-          .executeGet(fullEndpoint + "?" + parameterString);
+        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments == null ? null
+            : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor.executeGet(fullEndpoint + "?"
+            + parameterString);
       }
     });
   }
@@ -521,6 +574,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // If we have a legacy exception, throw it.
     throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
+    // If we have a batch API exception, throw it.
+    throwBatchFacebookResponseStatusExceptionIfNecessary(json);
+
     try {
       // If the result is not an object, bail immediately.
       if (!json.startsWith("{"))
@@ -536,6 +592,47 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw graphFacebookExceptionMapper
         .exceptionForTypeAndMessage(null, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+    } catch (JsonException e) {
+      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
+    }
+  }
+
+  /**
+   * If the {@code error} and {@code error_description} JSON fields are present,
+   * we've got a response status error for this batch API call. Extracts
+   * relevant information from the JSON and throws an exception which
+   * encapsulates it for end-user consumption.
+   * 
+   * @param json
+   *          The JSON returned by Facebook in response to a batch API call.
+   * @throws FacebookResponseStatusException
+   *           If the JSON contains an error code.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while processing the JSON.
+   * @since 1.6.5
+   */
+  protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json) {
+    try {
+      // If this is not an object, it's not an error response.
+      if (!json.startsWith("{"))
+        return;
+
+      JsonObject errorObject = null;
+
+      // We need to swallow exceptions here because it's possible to get a legit
+      // Facebook response that contains illegal JSON (e.g.
+      // users.getLoggedInUser returning 1240077) - we're only interested in
+      // whether or not there's an error_code field present.
+      try {
+        errorObject = new JsonObject(json);
+      } catch (JsonException e) {}
+
+      if (errorObject == null || !errorObject.has(BATCH_ERROR_ATTRIBUTE_NAME)
+          || !errorObject.has(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
+        return;
+
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
+        null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -569,7 +666,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
      *      java.lang.String, java.lang.String)
      */
-    
+    @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
         return new FacebookOAuthException(type, message);
@@ -616,16 +713,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)
    */
-  
-  protected String createEndpointForApiCall(String apiCall) {
+  @Override
+  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
     trimToEmpty(apiCall).toLowerCase();
     while (apiCall.startsWith("/"))
       apiCall = apiCall.substring(1);
 
-    return String.format("%s/%s", readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl()
-        : getFacebookGraphEndpointUrl(), apiCall);
+    String baseUrl = getFacebookGraphEndpointUrl();
+
+    if (readOnlyApiCalls.contains(apiCall))
+      baseUrl = getFacebookReadOnlyEndpointUrl();
+    else if (hasAttachment && apiCall.endsWith("/videos"))
+      baseUrl = getFacebookGraphVideoEndpointUrl();
+
+    return format("%s/%s", baseUrl, apiCall);
   }
 
   /**
@@ -638,9 +741,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * Returns the base endpoint URL for the Graph API's video upload
+   * functionality.
+   * 
+   * @return The base endpoint URL for the Graph API's video upload
+   *         functionality.
+   * @since 1.6.5
+   */
+  protected String getFacebookGraphVideoEndpointUrl() {
+    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+  }
+
+  /**
    * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
-  
+  @Override
   protected String getFacebookReadOnlyEndpointUrl() {
     return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }

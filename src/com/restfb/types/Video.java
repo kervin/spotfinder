@@ -39,11 +39,12 @@ import com.restfb.Facebook;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Video extends FacebookType {
+public class Video extends NamedFacebookType {
   @Facebook
   private CategorizedFacebookType from;
 
   @Facebook
+  @Deprecated
   private String message;
 
   @Facebook
@@ -54,6 +55,9 @@ public class Video extends FacebookType {
 
   @Facebook
   private String icon;
+
+  @Facebook
+  private String source;
 
   @Facebook("embed_html")
   private String embedHtml;
@@ -68,7 +72,12 @@ public class Video extends FacebookType {
   private String updatedTime;
 
   @Facebook
+  private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
+
+  @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the name and ID of the user who posted the video.
@@ -84,6 +93,7 @@ public class Video extends FacebookType {
    * The video title / caption.
    * 
    * @return The video title / caption.
+   * @deprecated FB seems to have removed this field.
    */
   public String getMessage() {
     return message;
@@ -126,12 +136,32 @@ public class Video extends FacebookType {
   }
 
   /**
+   * A URL to the raw, playable video file.
+   * 
+   * @return A URL to the raw, playable video file.
+   * @since 1.6.5
+   */
+  public String getSource() {
+    return source;
+  }
+
+  /**
    * HTML that may be used to embed the video on another website.
    * 
    * @return HTML that may be used to embed the video on another website.
    */
   public String getEmbedHtml() {
     return embedHtml;
+  }
+
+  /**
+   * Tags for the video.
+   * 
+   * @return Tags for the video.
+   * @since 1.6.5
+   */
+  public List<NamedFacebookType> getTags() {
+    return unmodifiableList(tags);
   }
 
   /**

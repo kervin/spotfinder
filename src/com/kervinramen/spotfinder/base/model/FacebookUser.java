@@ -147,7 +147,7 @@ public class FacebookUser {
     }
 
     public JSONObject getFeedGraph() {
-        return StringHelper.getJSON(this.feedGraph.toString());
+        return StringHelper.getJSON(this.feedGraph.getValue());
     }
 
     public String getFeedGraphString() {
