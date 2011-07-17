@@ -181,7 +181,6 @@ public final class ReflectionUtils {
       /**
        * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
        */
-      @Override
       public int compare(Method method1, Method method2) {
         return method1.getName().compareTo(method2.getName());
       }
