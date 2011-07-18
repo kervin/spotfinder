@@ -2,7 +2,7 @@ package com.kervinramen.spotfinder.facebookapp.model;
 
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
-import com.kervinramen.spotfinder.helpers.StringHelper;
+import com.kervinramen.spotfinder.helpers.Utilities;
 
 /**
  * This class caters for interaction with facebook It contains all the
@@ -93,7 +93,7 @@ public class App {
 		String graphUrl = "https://graph.facebook.com/me?" + accessToken;
 		String userInformation = HttpHelper.getStringResponse(graphUrl);
 
-		return StringHelper.getJSON(userInformation);
+		return Utilities.getJSON(userInformation);
 	}
 
 	public JSONObject getFeedGraph() {
@@ -103,7 +103,7 @@ public class App {
 		String graphUrl = "https://graph.facebook.com/me/feed?" + accessToken;
 		String userInformation = HttpHelper.getStringResponse(graphUrl);
 
-		return StringHelper.getJSON(userInformation);
+		return Utilities.getJSON(userInformation);
 	}
 
 	public JSONObject getHomeGraph() {
@@ -113,7 +113,7 @@ public class App {
 		String graphUrl = "https://graph.facebook.com/me/home?" + accessToken;
 		String userInformation = HttpHelper.getStringResponse(graphUrl);
 
-		return StringHelper.getJSON(userInformation);
+		return Utilities.getJSON(userInformation);
 	}
 
 }

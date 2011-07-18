@@ -18,7 +18,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
 import com.kervinramen.spotfinder.helpers.PMF;
-import com.kervinramen.spotfinder.helpers.StringHelper;
+import com.kervinramen.spotfinder.helpers.Utilities;
 
 /**
  * This class contains all the user information that is obtained from Facebook
@@ -128,7 +128,7 @@ public class FacebookUser {
     }
 
     public JSONObject getInfoGraph() {
-        return StringHelper.getJSON(this.infoGraph.toString());
+        return Utilities.getJSON(this.infoGraph.toString());
     }
 
     public String getInfoGraphString() {
@@ -147,7 +147,7 @@ public class FacebookUser {
     }
 
     public JSONObject getFeedGraph() {
-        return StringHelper.getJSON(this.feedGraph.getValue());
+        return Utilities.getJSON(this.feedGraph.getValue());
     }
 
     public String getFeedGraphString() {
@@ -167,7 +167,7 @@ public class FacebookUser {
     }
 
     public JSONObject getHomeFeedGraph() {
-        return StringHelper.getJSON(this.homeFeedGraph.toString());
+        return Utilities.getJSON(this.homeFeedGraph.toString());
     }
 
     public String getHomeFeedGraphString() {

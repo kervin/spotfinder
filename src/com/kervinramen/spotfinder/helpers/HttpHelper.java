@@ -20,7 +20,7 @@ public class HttpHelper {
 			URL url = new URL(address);
 			Object stream = url.getContent();
 			ByteArrayInputStream bais = (ByteArrayInputStream) stream;
-			response = StringHelper.BytetoString(bais);
+			response = Utilities.BytetoString(bais);
 
 		} catch (Exception ex) {
 			response = ex.getMessage();
@@ -43,7 +43,7 @@ public class HttpHelper {
 			URL url = new URL(address);
 			Object stream = url.getContent();
 			InputStream bais = (InputStream) stream;
-			response = StringHelper.convertStreamToString(bais);
+			response = Utilities.convertStreamToString(bais);
 
 
 		} catch (Exception ex) {
