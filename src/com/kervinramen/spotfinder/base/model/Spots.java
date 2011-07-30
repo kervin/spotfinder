@@ -3,6 +3,7 @@ package com.kervinramen.spotfinder.base.model;
 import java.util.ArrayList;
 
 import javax.jdo.PersistenceManager;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -14,20 +15,21 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.kervinramen.spotfinder.helpers.PMF;
 
+@XmlRootElement
 public class Spots {
 
-    public ArrayList<Spot> spots;
+    public ArrayList<Spot> spot;
 
     public ArrayList<Spot> getSpots() {
-        return this.spots;
+        return this.spot;
     }
 
     public void setSpots(ArrayList<Spot> value) {
-        this.spots = value;
+        this.spot = value;
     }
 
     public Spots() {
-        this.spots = new ArrayList<Spot>();
+        this.setSpots(new ArrayList<Spot>());
     }
     
     public void getAllSpots() {
@@ -44,7 +46,8 @@ public class Spots {
             Spot spot = new Spot();
             spot.parseEntity(result);
             
-            this.spots.add(spot);
+            
+            this.spot.add(spot);
         }
     }
     

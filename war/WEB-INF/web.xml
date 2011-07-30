@@ -83,14 +83,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>Finder</servlet-name>
+        <servlet-class>com.kervinramen.spotfinder.finder.controller.FinderServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Finder</servlet-name>
+        <url-pattern>/find</url-pattern>
+    </servlet-mapping>
+    
 	<servlet>
-		<servlet-name>Relation</servlet-name>
-		<servlet-class>com.kervinramen.spotfinder.indexer.controller.RelationServlet</servlet-class>
+		<servlet-name>Indexer</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.indexer.controller.IndexerServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Relation</servlet-name>
-		<url-pattern>/relation</url-pattern>
+		<servlet-name>Indexer</servlet-name>
+		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
 
 

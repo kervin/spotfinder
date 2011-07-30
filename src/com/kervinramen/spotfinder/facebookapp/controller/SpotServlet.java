@@ -32,7 +32,7 @@ public class SpotServlet extends HttpServlet {
                 spots.getAllSpots();
                 
                 // Setting the users obj to the jsp
-                req.setAttribute("spots", spots.spots);
+                req.setAttribute("spots", spots.getSpots());
                 
                 dispatcher = req.getRequestDispatcher("/views/facebookapp/spot/viewall.jsp");
             } else {

@@ -11,7 +11,7 @@ import java.util.Calendar;
  * @author Kervin Ramen
  *
  */
-public class CompareInfo implements ICompare {
+public class CompareInfo {
 
 	public CompareInfo() {
 		
