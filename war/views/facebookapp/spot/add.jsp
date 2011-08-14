@@ -14,23 +14,27 @@
         <table>
             <tr>
                 <td>Name:</td>
-                <td><input type="text" name="name" id="name" /></td>
+                <td><input type="text" name="name" id="name"  size="100" />
+                </td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input type="text" name="description" id="description" /></td>
+                <td><textarea name="description" id="description" rows="5" cols="77">
+                </textarea>
             </tr>
             <tr>
                 <td>Location:</td>
-                <td><input type="text" name="location" id="location" /></td>
+                <td><input type="text" name="location" id="location" size="100"/>
+                </td>
             </tr>
             <tr>
                 <td>Image:</td>
-                <td><input type="text" name="image" id="image" /></td>
+                <td><input type="text" name="image" id="image"  size="100" />
+                </td>
             </tr>
         </table>
 
-        <input type="submit" value="Create Spot" />
+        <input type="submit" value="Save Spot"  width="100px" /><input type="button" value="Cancel" onClick="window.location='/spot/' " />
     </form>
 </body>
 </html>

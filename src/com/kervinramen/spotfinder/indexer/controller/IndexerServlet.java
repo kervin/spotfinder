@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kervinramen.spotfinder.indexer.model.IndexEngine;
+import com.kervinramen.spotfinder.indexer.model.IndexerEngine;
+import com.kervinramen.spotfinder.indexer.model.Parser;
 
 @SuppressWarnings("serial")
 public class IndexerServlet extends HttpServlet {
@@ -23,9 +24,11 @@ public class IndexerServlet extends HttpServlet {
          * resp.getWriter().println(user.getHomeFeedGraph().toString());
          */
 
-        IndexEngine indexer = new IndexEngine();
-
+        Parser indexer = new Parser();
         indexer.start();
+        
+        IndexerEngine engine = new IndexerEngine();
+        engine.start();
 
     }
 

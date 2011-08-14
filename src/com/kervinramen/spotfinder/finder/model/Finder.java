@@ -12,7 +12,7 @@ public class Finder {
         return new FacebookUser();
     }
     
-    public Spots getAllSpots() 
+    public Spots getSpots() 
     { 
         Spots allSpots = new Spots();
         allSpots.getAllSpots();
@@ -22,7 +22,7 @@ public class Finder {
     
     public Spots search(FacebookUser user) 
     {
-        return getAllSpots();
+        return getSpots();
     }
     
     public Spots search()

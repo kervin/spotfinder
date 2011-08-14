@@ -1,5 +1,6 @@
 package com.kervinramen.spotfinder.indexer.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +15,11 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.kervinramen.spotfinder.helpers.PMF;
 import com.kervinramen.spotfinder.helpers.Utilities;
 
+import com.kervinramen.spotfinder.base.model.*;
 /**
  * This object stores the relationship between users
  * 
@@ -38,84 +39,84 @@ public class UserIndex {
      * The userid of the user that made the post or status message
      */
     @Persistent
-    private int userIdTo;
+    private long userId;
 
     /**
      * The userId of the user that is commenting / liking the post or status
      */
     @Persistent
-    private int userIdFrom;
+    private long friendId;
 
     /**
      * The username of the userthat made the post or status message
      */
     @Persistent
-    private String usernameTo;
+    private String userName;
 
     /**
      * The username of the user that commented on the message
      */
     @Persistent
-    private String usernameFrom;
+    private String friendName;
 
     /**
      * Number of interactions between the FROM one user and TO the other user
      */
     @Persistent
     private int count;
-    
+
+    /**
+     * Last interaction date
+     */
     @Persistent
     private Date lastDate;
 
-    // /**
-    // * Number of actions of user2 to user1
-    // */
-    // private int toCount;
-    //
-    // /**
-    // * Number of actions towards user2 from user1
-    // */
-    // private int fromCount;
-    //
-    // /**
-    // * The number of action user1 and user1 did on the same thread
-    // */
-    // private int sameCount;
+    /**
+     * The score for the relationship strength
+     */
+    @Persistent
+    private double score;
+
+    /**
+     * Last date when the interaction count was updated
+     */
+    @Persistent
+    private Date lastModified;
 
     public Key getId() {
         return id;
     }
 
-    public int getUserIdTo() {
-        return userIdTo;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserIdTo(int userIdTo) {
-        this.userIdTo = userIdTo;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public int getUserIdFrom() {
-        return userIdFrom;
+    public long getFriendId() {
+        return friendId;
     }
 
-    public void setUserIdFrom(int userIdFrom) {
-        this.userIdFrom = userIdFrom;
+    public void setUserIdFrom(long friendId) {
+        this.friendId = friendId;
     }
 
-    public String getUsernameTo() {
-        return usernameTo;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsernameTo(String usernameTo) {
-        this.usernameTo = usernameTo;
+    public void setUsernameTo(String userName) {
+        this.userName = userName;
     }
 
-    public String getUsernameFrom() {
-        return usernameFrom;
+    public String getFriendName() {
+        return friendName;
     }
 
-    public void setUsernameFrom(String usernameFrom) {
-        this.usernameFrom = usernameFrom;
+    public void setFriendName(String friendName) {
+        this.friendName = friendName;
     }
 
     public void incrementCount(Date lastDate) {
@@ -136,57 +137,49 @@ public class UserIndex {
     public Date getLastDate() {
         return lastDate;
     }
-    
-    // public void setToCount(int toCount) {
-    // this.toCount = toCount;
-    // }
-    //
-    // public int getToCount() {
-    // return toCount;
-    // }
-    //
-    // public void setFromCount(int fromCount) {
-    // this.fromCount = fromCount;
-    // }
-    //
-    // public int getFromCount() {
-    // return fromCount;
-    // }
-    //
-    // public void setSameCount(int sameCount) {
-    // this.sameCount = sameCount;
-    // }
-    //
-    // public int getSameCount() {
-    // return sameCount;
-    // }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 
     public UserIndex() {
 
     }
 
-
     /**
      * Converts an Entity to a User Index object
+     * 
      * @param entity
      */
     public UserIndex(Entity entity) {
         this.id = entity.getKey();
-        
+
         // stored as long in db
-        this.userIdTo = Utilities.safeLongToInt((Long)(entity.getProperty("userIdTo"))); 
-        this.userIdFrom = Utilities.safeLongToInt((Long)(entity.getProperty("userIdFrom")));
-        this.usernameTo = (String)(entity.getProperty("usernameTo"));
-        this.usernameFrom = (String)(entity.getProperty("usernameFrom"));
-        this.count = Utilities.safeLongToInt((Long)entity.getProperty("count"));
+        this.userId = (Long) (entity.getProperty("userId"));
+        this.friendId = (Long) (entity.getProperty("friendId"));
+        this.userName = (String) (entity.getProperty("userName"));
+        this.friendName = (String) (entity.getProperty("friendName"));
+        this.count = Utilities.safeLongToInt((Long) entity.getProperty("count"));
         this.lastDate = (Date) entity.getProperty("lastDate");
     }
-    
-    public UserIndex(String userIdTo, String userIdFrom, String usernameTo, String usernameFrom, Date lastDate) {
-        this.userIdTo = Integer.parseInt(userIdTo);
-        this.userIdFrom = Integer.parseInt(userIdFrom);
-        this.usernameTo = usernameTo;
-        this.usernameFrom = usernameFrom;
+
+    public UserIndex(String userId, String friendId, String userName, String friendName, Date lastDate) {
+        this.userId = Long.valueOf(userId);
+        this.friendId = Long.valueOf(friendId);
+        this.userName = userName;
+        this.friendName = friendName;
         this.lastDate = lastDate;
         this.count = 1;
     }
@@ -205,55 +198,133 @@ public class UserIndex {
         }
     }
 
-    /**
-     * Searches for a particular user
-     * 
-     * @param userId
-     *            userId of the user on facebook
-     */
-    public static UserIndex searchUserIndex(int userIdTo, int userIdFrom) {
+    public static ArrayList<UserIndex> getFriendsIndex(int friendId) {
+        ArrayList<UserIndex> retValue = new ArrayList<UserIndex>();
 
-        UserIndex retValue = null;
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+        q.addFilter("friendId", Query.FilterOperator.EQUAL, friendId);
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                retValue.add(new UserIndex(entity));                
+            }
+        }
+
+        return retValue;
+           
+    }
+
+    
+    public static int getTotal(long l) {
+        int total = 0;
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+        q.addFilter("userId", Query.FilterOperator.EQUAL, l);
+
+        datastore.prepare(q);
         
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                UserIndex index = new UserIndex(entity);
+                total += index.getCount();
+            }
+        }
+
+        return total;
+           
+    }
+
+    
+    public static ArrayList<UserIndex> getUserIndexes() {
+        ArrayList<UserIndex> retValue = new ArrayList<UserIndex>();
+
         // Get the Datastore Service
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         // The Query interface assembles a query
         Query q = new Query("UserIndex");
 
-        q.addFilter("userIdTo", Query.FilterOperator.EQUAL, userIdTo);
-        q.addFilter("userIdFrom", Query.FilterOperator.EQUAL, userIdFrom);
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
 
-        PreparedQuery pq = datastore.prepare(q);
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                retValue.add(new UserIndex(entity));                
+            }
+        }
+
+        return retValue;
+    }
+
+    /**
+     * Searches for a particular user
+     * 
+     * @param l
+     *            userId of the user on facebook
+     */
+    public static UserIndex getUserIndex(long l) {
+
+        UserIndex retValue = null;
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+        q.addFilter("userId", Query.FilterOperator.EQUAL, l);
+
+        datastore.prepare(q);
         List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
 
         if (!entities.isEmpty()) {
             retValue = new UserIndex(entities.get(0));
         }
-        
-        // This is too slow
-        //        
-        //        PersistenceManager pm = PMF.get().getPersistenceManager();
-        //        javax.jdo.Query query = pm.newQuery(UserIndex.class);
-        //        query.setFilter("userIdTo == " + userIdTo);
-        //        query.setFilter("userIdFrom == " + userIdFrom);
-        //
-        //        try {
-        //
-        //            @SuppressWarnings("unchecked")
-        //            List<UserIndex> results = (List<UserIndex>) query.execute();
-        //
-        //            if (!results.isEmpty()) {
-        //                retValue = results.get(0);
-        //            }
-        //            
-        //        } finally {
-        //           query.close(pm);
-        //        }
 
         return retValue;
     }
+    
+    /**
+     * Searches for on relationship
+     * 
+     * @param userId userid of the user 
+     * @param friendId userid of the friend
+     * 
+     * @return
+     */
+    public static UserIndex searchUserIndex(Long userId, Long friendId) {
 
+        UserIndex retValue = null;
 
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+
+        q.addFilter("userId", Query.FilterOperator.EQUAL, userId);
+        q.addFilter("friendId", Query.FilterOperator.EQUAL, friendId);
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            retValue = new UserIndex(entities.get(0));
+        }
+
+        return retValue;
+    }
 
 }

@@ -2,18 +2,12 @@ package com.kervinramen.spotfinder.finder.controller;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.transform.Result;
-
-
-
 import com.kervinramen.spotfinder.base.model.Spots;
 import com.kervinramen.spotfinder.finder.model.Finder;
 

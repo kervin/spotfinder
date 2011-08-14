@@ -23,27 +23,26 @@
         <table>
             <tr>
                 <td>Name:</td>
-                <td><input type="text" name="name" id="name" value="<%= spot.getName() %>"/>
+                <td><input type="text" name="name" id="name"  size="100" value="<%= spot.getName() %>"/>
                 </td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input type="text" name="description" id="description" value="<%= spot.getDescription() %>"/>
+                <td><textarea name="description" id="description" rows="5" cols="77"  ><%= spot.getDescription() %></textarea>
                 </td>
             </tr>
             <tr>
                 <td>Location:</td>
-                <td><input type="text" name="location" id="location" value="<%= spot.getLocation() %>"/>
+                <td><input type="text" name="location" id="location"  size="100" value="<%= spot.getLocation() %>"/>
                 </td>
             </tr>
             <tr>
                 <td>Image:</td>
-                <td><input type="text" name="image" id="image" value="<%= spot.getImage() %>"/>
+                <td><input type="text" name="image" id="image"  size="100" value="<%= spot.getImage() %>"/>
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Save spot" />
-
+        <input type="submit" value="Save spot" /><input type="button" value="Cancel" onClick="window.location='/spot/'" />
     </form>
 </body>
 </html>

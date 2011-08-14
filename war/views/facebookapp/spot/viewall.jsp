@@ -14,6 +14,8 @@
         <tr>
             <td>Spot Name</td>
             <td>Description</td>
+            <td>Location</td>
+            <td>Image</td>
             <td>Action</td>
         </tr>
 
@@ -25,9 +27,10 @@
 
         <tr>
             <td><%=spot.getName()%></td>
-            <td><%=spot.getDescription()%>
-            <td><a href="/spot/?spotid=<%=spot.getSpotId()%>">edit</a>
-            </td>
+            <td><%=spot.getDescription()%></td>
+            <td><%=spot.getLocation()%></td>
+            <td><%=spot.getImage()%></td>
+            <td><input type="button" value="Edit" onClick="window.location='/spot/?spotid=<%=spot.getSpotId()%>' " /></td>
         </tr>
 
 
@@ -35,6 +38,7 @@
             }
         %>
     </table>
-
+    <input type="button" value="Add new spot" onClick="window.location='/spot/add/' " />
+    
 </body>
 </html>

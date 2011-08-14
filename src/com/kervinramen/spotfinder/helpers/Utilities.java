@@ -9,6 +9,9 @@ import java.io.StringWriter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 
@@ -81,5 +84,14 @@ public class Utilities {
 	    return (int) l;
 	}
 
+	public static  void runQuery() {
+	    PersistenceManager pm = PMF.get().getPersistenceManager();
+	    
+        Query query = pm.newQuery("select from FacebookUser");
+
+         query.execute();
+         
+	    
+	}
 
 }

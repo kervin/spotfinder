@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.kervinramen.spotfinder.base.model.FacebookUsers;
-import com.kervinramen.spotfinder.facebookapp.model.*;
 
 @SuppressWarnings("serial")
 public class DatabaseServlet extends HttpServlet {
