@@ -18,6 +18,7 @@ import com.kervinramen.spotfinder.helpers.PMF;
 @PersistenceCapable
 public class Rating {
     
+    @SuppressWarnings("unused")
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key id;

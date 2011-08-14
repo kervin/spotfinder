@@ -1,8 +1,10 @@
 package com.kervinramen.spotfinder.base.model;
 
 import java.util.ArrayList;
+
 import javax.jdo.PersistenceManager;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;

@@ -1,9 +1,10 @@
 package com.kervinramen.spotfinder.indexer.model;
 
+import java.util.Calendar;
+
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.User;
-import java.util.Calendar;
 
 /**
  * Compares just the attributes of the users

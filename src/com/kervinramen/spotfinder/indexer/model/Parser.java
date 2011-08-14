@@ -11,7 +11,9 @@ import com.kervinramen.spotfinder.base.model.FacebookUsers;
 import com.kervinramen.spotfinder.helpers.Utilities;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
-import com.restfb.types.*;
+import com.restfb.types.Comment;
+import com.restfb.types.NamedFacebookType;
+import com.restfb.types.Post;
 
 /**
  * This class takes care of indexing, it retrieves the list of FacebookUsers

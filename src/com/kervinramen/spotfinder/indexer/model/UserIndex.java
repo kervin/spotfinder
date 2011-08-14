@@ -18,8 +18,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
 import com.kervinramen.spotfinder.helpers.PMF;
 import com.kervinramen.spotfinder.helpers.Utilities;
-
-import com.kervinramen.spotfinder.base.model.*;
 /**
  * This object stores the relationship between users
  * 

@@ -23,6 +23,7 @@ import com.kervinramen.spotfinder.helpers.PMF;
 @PersistenceCapable
 public class Spot {
 
+    @SuppressWarnings("unused")
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")

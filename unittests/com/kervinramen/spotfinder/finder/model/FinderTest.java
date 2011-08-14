@@ -3,15 +3,16 @@
  */
 package com.kervinramen.spotfinder.finder.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.kervinramen.spotfinder.base.model.FacebookUser;
 
 /**
  * @author Kervin Ramen

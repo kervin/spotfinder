@@ -1,22 +1,21 @@
 package com.kervinramen.spotfinder.base.model;
 
+import java.util.Date;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import java.util.Date;
-
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Text;
-import com.google.appengine.repackaged.org.json.JSONObject;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-
+import com.google.appengine.api.datastore.Text;
+import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.helpers.PMF;
 import com.kervinramen.spotfinder.helpers.Utilities;
 
