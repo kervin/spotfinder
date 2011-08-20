@@ -20,6 +20,7 @@ public class FinderServlet extends HttpServlet {
 
         Finder finder = new Finder();
         Spots spots = finder.search();
+        
         StringWriter xml = new StringWriter();
         
         JAXBContext context;

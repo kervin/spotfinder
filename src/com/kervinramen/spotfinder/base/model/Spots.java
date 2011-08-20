@@ -1,9 +1,13 @@
 package com.kervinramen.spotfinder.base.model;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.jdo.PersistenceManager;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.transform.stream.StreamSource;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -28,10 +32,6 @@ public class Spots {
     public Spots() {
         this.setSpots(new ArrayList<Spot>());
     }
-    
-    public void getNearbySpots(String latitude, String longitude) {
-        
-    }   
 
     public void getAllSpots() {
         // Get the Datastore Service
@@ -84,5 +84,26 @@ public class Spots {
          * spot.parseEntity(result); }
          */
 
+    }
+    
+    public static Spots getSpotsFromWS() {
+        
+        String xml = com.kervinramen.spotfinder.helpers.HttpHelper.getStringResponse("http://myspotfinder.appspot.com/find");
+        return getSpotsFromXml(xml);
+    }
+
+    private static Spots getSpotsFromXml(String xml) {
+        Spots spots = null;
+        JAXBContext context;
+        try {
+            context = JAXBContext.newInstance(Spots.class);
+            Unmarshaller um = context.createUnmarshaller();
+            spots = (Spots) um.unmarshal(new StreamSource(new StringReader(xml)));
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return spots;
     }
 }

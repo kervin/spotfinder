@@ -196,6 +196,16 @@ public class FacebookUser {
         this.createdOn = new Date();
     }
 
+    public FacebookUser(Entity result) {
+        this.id = (Key) result.getProperty("id");
+        this.userId = (String) result.getProperty("userId");
+        this.username = (String) result.getProperty("username");
+        this.createdOn = (Date) result.getProperty("createdOn");
+        this.infoGraph = (Text) result.getProperty("infoGraph");
+        this.feedGraph = (Text) result.getProperty("feedGraph");
+        this.homeFeedGraph = (Text) result.getProperty("homeFeedGraph");
+        
+    }
     /**
      * Constructor
      * 

@@ -29,8 +29,6 @@ public class Parser {
      * Starts the indexing process
      */
     public void start() {
-        
-        Utilities.runQuery();
 
         FacebookUsers users = new FacebookUsers();
         users.getAllUsers();
@@ -38,6 +36,8 @@ public class Parser {
         int count = 0;
         for (FacebookUser user : users.users) {
             this.indexFeed(user.getId(), user.getFeedGraph());
+
+            this.indexFeed(user.getId(), user.getHomeFeedGraph());
 
             // TODO: remove this
             // for dev purposes
@@ -59,23 +59,20 @@ public class Parser {
     private void indexFeed(Key key, JSONObject jsonObject) {
 
         JSONArray feed = new JSONArray();
-        Boolean validFeed = true;
-        try {
-            feed = jsonObject.getJSONArray("data");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            System.out.println(String.valueOf(key.getId()));
-            validFeed = false;
-        }
-
-        if (validFeed) {
+        if (jsonObject.has("data")) {
+            try {
+                feed = jsonObject.getJSONArray("data");
+            } catch (JSONException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        
             for (int i = 0; i < feed.length(); i++) {
                 try {
                     JSONObject feedData = feed.getJSONObject(i);
                     this.indexData(feedData.toString(), feedData.getString("type"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    validFeed = false;
                 }
             }
         }

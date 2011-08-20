@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
+import com.kervinramen.spotfinder.base.model.Spots;
 import com.kervinramen.spotfinder.helpers.HttpHelper;
 import com.kervinramen.spotfinder.indexer.model.CompareInfo;
 
@@ -53,6 +54,14 @@ public class HelperServlet extends HttpServlet {
 			resp.getWriter().println(info);
 		}
 		
+
+        if (req.getParameter("cmd").compareTo("5") == 0) {
+
+            Spots spots = Spots.getSpotsFromWS();
+            
+            resp.getWriter().println(spots.toString());
+        }
+        
 		if (req.getParameter("cmd").compareTo("compare") == 0) {
 			
 			CompareInfo compare = new CompareInfo();
