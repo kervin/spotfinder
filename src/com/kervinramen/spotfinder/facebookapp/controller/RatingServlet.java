@@ -15,7 +15,7 @@ public class RatingServlet extends HttpServlet {
 
         int rate = Integer.parseInt(req.getParameter("rate"));
         int spotId = Integer.parseInt(req.getParameter("spotid"));
-        int userId = Integer.parseInt((String) req.getSession().getAttribute("userid"));
+        long userId = Long.valueOf((String) req.getSession().getAttribute("userid"));
 
         Rating rating = new Rating(rate, userId, spotId);
         rating.save();

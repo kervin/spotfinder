@@ -2,7 +2,7 @@ package com.kervinramen.spotfinder.indexer.model;
 
 import java.util.ArrayList;
 
-public class IndexerEngine {
+public class IndexingEngine {
 
     public void start() {
 

@@ -2,6 +2,7 @@ package com.kervinramen.spotfinder.base.model;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.xml.bind.JAXBContext;
@@ -12,7 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 import com.kervinramen.spotfinder.helpers.PMF;
 
@@ -34,20 +35,27 @@ public class Spots {
     }
 
     public void getAllSpots() {
+        
+        ArrayList<Spot> retValue = new ArrayList<Spot>();
+
         // Get the Datastore Service
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+        // The Query interface assembles a query
         Query q = new Query("Spot");
 
-        // fetching results from the datastore
-        PreparedQuery pq = datastore.prepare(q);
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
 
-        for (Entity result : pq.asIterable()) {
-            Spot spot = new Spot();
-            spot.parseEntity(result);
-
-            this.spot.add(spot);
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                Spot spot = new Spot();
+                spot.parseEntity(entity);
+                retValue.add(spot);                
+            }
         }
+
+       this.spot = retValue;
     }
 
     /**

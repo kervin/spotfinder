@@ -1,26 +1,20 @@
 package com.kervinramen.spotfinder.finder.model;
 
-import java.awt.geom.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import com.google.appengine.repackaged.org.joda.time.DateTime;
-import com.kervinramen.spotfinder.base.model.*;
+import com.kervinramen.spotfinder.base.model.FacebookUser;
+import com.kervinramen.spotfinder.base.model.Rating;
+import com.kervinramen.spotfinder.base.model.Spot;
+import com.kervinramen.spotfinder.base.model.Spots;
+import com.kervinramen.spotfinder.helpers.Utilities;
+import com.kervinramen.spotfinder.indexer.model.UserIndex;
 
 public class Finder {
 
     // Maximum distance of interest spots in km
-    private final double maxDistance = 5;
-
-    // Earth radius in km
-    private final double earthRadius = 6371.0;
-
-    private FacebookUser getFacebookUser(String username) {
-        FacebookUser user = new FacebookUser();
-        user.searchUser(username);
-        return new FacebookUser();
-    }
+    private final double maxDistance = 70;
 
     private ArrayList<Spot> getSpots() {
         Spots allSpots = new Spots();
@@ -34,58 +28,91 @@ public class Finder {
      */
 
     public Spots search() {
-        return search(getFacebookUser("kervin.ramen"), "20", "-57");
+        return search("kervin.ramen", "-20", "57");
     }
 
-    public Spots search(FacebookUser userId, String userLat, String userLng) {
-        ArrayList<Spot> nearbySpots = getNearbySpots(Double.valueOf(userLat), Double.valueOf(userLng));
+    /**
+     * Returns a context-aware results
+     * 
+     * @param userId
+     * @param userLat
+     * @param userLng
+     * @return
+     */
+    public Spots search(String username, String userLat, String userLng) {
+        ArrayList<Spot> nearbySpots = getNearBySpots(Double.valueOf(userLat), Double.valueOf(userLng));
+        ArrayList<Spot> rankedSpots = getRankedSpots(username, nearbySpots);
 
         Spots spots = new Spots();
-        spots.setSpots(nearbySpots);
+        spots.setSpots(rankedSpots);
 
         return spots;
     }
 
-    private ArrayList<Spot> getRatedSpots(String userId, ArrayList<Spot> nearbySpots) {
-
-        ArrayList<FacebookUser> friends = FacebookUsers.getFriends(userId);
-
-        for (Spot spot : nearbySpots) {
-
-        }
-
-        return null;
+    private FacebookUser getFacebookUser(String username) {
+        FacebookUser user = new FacebookUser();
+        user.searchUser(username);
+        return user;
     }
 
     /**
-     * Implementation of Haversine formula
+     * Gets the updates score
      * 
-     * @param lat1
-     *            Latitude of point 1
-     * @param lng1
-     *            Longitude of point 1
-     * @param lat2
-     *            Latitude of point 2
-     * @param lng2
-     *            Longitude of point 2
-     * 
-     * @return distance between the two points
+     * @param username
+     *            The Facebook username
+     * @param nearbySpots
+     *            The Spots that are near to the user
+     * @return
      */
-    public double distFrom(double lat1, double lng1, double lat2, double lng2) {
+    private ArrayList<Spot> getRankedSpots(String username, ArrayList<Spot> nearbySpots) {
 
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
+        ArrayList<Spot> rankedSpots = new ArrayList<Spot>();
 
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        // Get the Facebook info for the username passed
+        FacebookUser user = getFacebookUser(username);
 
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double dist = earthRadius * c;
+        // Get all the indexes for the user. All the friends that she had
+        // interaction with
+        ArrayList<UserIndex> indexes = UserIndex.getUserIndexes(user.getLongUserId());
 
-        return dist;
+        // For each spot
+        for (Spot spot : nearbySpots) {
+            Double totalRating = 0.0;
+            int count = 0;
+
+            // For each friend
+            for (UserIndex index : indexes) {
+
+                // Get the ratin of the friend for this spot
+                Rating rating = Rating.getRating(index.getFriendId(), spot.getSpotId());
+
+                if (rating != null) {
+                    // Caculate the totalRank
+                    totalRating = (rating.getrate() * index.getScore());
+                }
+                count++;
+            }
+
+            // Calcuate the mean rank
+            Double rank = totalRating / count;
+
+            // Set the rank for the spot
+            spot.setRank(rank);
+
+            rankedSpots.add(spot);
+        }
+
+        return rankedSpots;
     }
 
-    public ArrayList<Spot> getNearbySpots(Double userLat, Double userLng) {
+    /**
+     * Gets spots near the user
+     * 
+     * @param userLat
+     * @param userLng
+     * @return
+     */
+    private ArrayList<Spot> getNearBySpots(Double userLat, Double userLng) {
         ArrayList<Spot> nearbySpots = new ArrayList<Spot>();
 
         ArrayList<Spot> allSpots = this.getSpots();
@@ -98,31 +125,29 @@ public class Finder {
                 Double spotLat = Double.valueOf(spotLocation[0]);
                 Double spotLng = Double.valueOf(spotLocation[1]);
 
-                if (distFrom(userLat, userLng, spotLat, spotLng) < maxDistance) {
+                if (Utilities.distFrom(userLat, userLng, spotLat, spotLng) < maxDistance) {
                     nearbySpots.add(spot);
                 }
             } catch (Exception e) {
                 Logger log = Logger.getLogger("Finder");
                 log.severe(e.getStackTrace().toString());
-                
+
             }
         }
 
-        return allSpots;
+        return nearbySpots;
 
     }
 
-    public Double getDaysElapsed(Date lastDate) {
-        long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
-
-        // today
-        Date today = new Date();
-
-        return (double) ((today.getTime() - lastDate.getTime()) / MILLSECS_PER_DAY);
-    }
-
+    /**
+     * Returns a decayed score
+     * 
+     * @param score
+     * @param lastDate
+     * @return
+     */
     public Double getDecayedScore(Double score, Date lastDate) {
-        Double daysElapsed = getDaysElapsed(lastDate);
+        Double daysElapsed = Utilities.getDaysElapsed(lastDate);
 
         Double halflife = (double) 10;
         Double decayConstant = Math.log(2) / halflife;

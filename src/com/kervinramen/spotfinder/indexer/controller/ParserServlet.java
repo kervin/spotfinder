@@ -6,16 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kervinramen.spotfinder.indexer.model.IndexingEngine;
+import com.kervinramen.spotfinder.indexer.model.Parser;
 
 @SuppressWarnings("serial")
-public class IndexerServlet extends HttpServlet {
+public class ParserServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        IndexingEngine engine = new IndexingEngine();
-        engine.start();
-
+        
+        Parser parser = new Parser();
+        parser.start();
     }
 
 }

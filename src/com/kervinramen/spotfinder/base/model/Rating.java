@@ -1,12 +1,20 @@
 package com.kervinramen.spotfinder.base.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query;
 import com.kervinramen.spotfinder.helpers.PMF;
 
 /**
@@ -27,7 +35,7 @@ public class Rating {
      * UserId of the Facebook User
      */
     @Persistent
-    private int userId;
+    private long userId;
     
     /**
      * SpotId of the spot
@@ -41,11 +49,11 @@ public class Rating {
     @Persistent
     private int rate;
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -70,10 +78,67 @@ public class Rating {
         
     }
     
-    public Rating(int rate, int userId, int spotId) {
+    public Rating(int rate, long userId, int spotId) {
         this.rate = rate;
         this.userId = userId;
         this.spotId = spotId;
+    }
+    
+    public Rating(Entity result) {
+        this.id = (Key) result.getProperty("id");
+        this.userId = (Long) (result.getProperty("userId"));
+        this.spotId = Integer.valueOf(result.getProperty("spotId").toString());
+        this.rate =  Integer.valueOf(result.getProperty("rate").toString());
+    }
+    
+    
+    public static Rating getRating(long userId, long spotId) {
+        Rating retValue = new Rating();
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("Rating");
+        q.addFilter("userId", Query.FilterOperator.EQUAL, userId);
+        q.addFilter("spotId", Query.FilterOperator.EQUAL, spotId);
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+              retValue = new Rating(entity);
+              return retValue;
+            }
+        }
+
+        return null;
+           
+    }
+    
+    
+    public static ArrayList<Rating> getAllRating() {
+        ArrayList<Rating> retValue = new  ArrayList<Rating>();
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("Rating");
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+              Rating rating = new Rating(entity);
+              retValue.add(rating);
+            }
+        }
+
+        return retValue;
+           
     }
     
     /**

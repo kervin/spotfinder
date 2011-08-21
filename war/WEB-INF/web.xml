@@ -34,15 +34,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>Kevina</servlet-name>
-		<servlet-class>com.kervinramen.spotfinder.servlets.KevinaServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Kevina</servlet-name>
-		<url-pattern>/kevina</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 		<servlet-name>RemoteApi</servlet-name>
 		<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
 	</servlet>
@@ -101,6 +92,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>Indexer</servlet-name>
 		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Parser</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.indexer.controller.ParserServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Parser</servlet-name>
+		<url-pattern>/parse</url-pattern>
 	</servlet-mapping>
 
 

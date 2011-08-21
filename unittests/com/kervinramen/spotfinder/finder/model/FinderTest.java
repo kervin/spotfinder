@@ -4,7 +4,6 @@
 package com.kervinramen.spotfinder.finder.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,10 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.kervinramen.spotfinder.base.model.FacebookUser;
 
 /**
  * @author Kervin Ramen
@@ -45,15 +42,21 @@ public class FinderTest {
         helper.tearDown();
     }
 
-    public FacebookUser getSearcher() {
-        FacebookUser searcher = new FacebookUser();
-        searcher.searchUser("kervin.ramen");
 
-        assertEquals(123, searcher.getUserId());
+    /**
+     * Test method for
+     * {@link com.kervinramen.spotfinder.finder.model.Finder#search()}.
+     */
+    @Test
+    public final void testFinder() {
 
-        return searcher;
+        finder.search();
+        
+        assertEquals("without decay", (double) 1, 2, 0);
+
     }
-
+    
+    
     /**
      * Test method for
      * {@link com.kervinramen.spotfinder.finder.model.Finder#search()}.

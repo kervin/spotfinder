@@ -60,6 +60,11 @@ public class Spot {
 	@Persistent
 	private String image;
 
+	/**
+	 * Rank of the spot
+	 */
+	private Double rank;
+	
     
     public Long getSpotId() {
         return this.spotId;
@@ -100,6 +105,14 @@ public class Spot {
     public String getImage() {
         return image;
     }
+    
+    public void setRank(Double rank) {
+        this.rank = rank;
+    }
+
+    public Double getRank() {
+        return rank;
+    }
 
     public Spot() {
     }
@@ -136,4 +149,6 @@ public class Spot {
 
         
     }
+
+
 }

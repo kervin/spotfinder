@@ -170,7 +170,10 @@ public class UserIndex {
         this.userName = (String) (entity.getProperty("userName"));
         this.friendName = (String) (entity.getProperty("friendName"));
         this.count = Utilities.safeLongToInt((Long) entity.getProperty("count"));
+        this.score = (Double) (entity.getProperty("score"));
         this.lastDate = (Date) entity.getProperty("lastDate");
+        this.lastModified = (Date) entity.getProperty("lastModified");
+        
     }
 
     public UserIndex(String userId, String friendId, String userName, String friendName, Date lastDate) {
@@ -196,6 +199,29 @@ public class UserIndex {
         }
     }
 
+    public static UserIndex getIndex(long userId, long friendId) {
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+        q.addFilter("userId", Query.FilterOperator.EQUAL, userId);
+        q.addFilter("friendId", Query.FilterOperator.EQUAL, friendId);
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                return new UserIndex(entity);
+            }
+        }
+
+        return null;
+           
+    }
+    
     public static ArrayList<UserIndex> getFriendsIndex(int friendId) {
         ArrayList<UserIndex> retValue = new ArrayList<UserIndex>();
 
@@ -267,13 +293,35 @@ public class UserIndex {
         return retValue;
     }
 
+    public static ArrayList<UserIndex> getUserIndexes(long userId) {
+        ArrayList<UserIndex> retValue = new ArrayList<UserIndex>();
+
+        // Get the Datastore Service
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        // The Query interface assembles a query
+        Query q = new Query("UserIndex");
+        q.addFilter("userId", Query.FilterOperator.EQUAL, userId);
+
+        datastore.prepare(q);
+        List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities) {
+                retValue.add(new UserIndex(entity));                
+            }
+        }
+
+        return retValue;
+    }
+    
     /**
      * Searches for a particular user
      * 
      * @param l
      *            userId of the user on facebook
      */
-    public static UserIndex getUserIndex(long l) {
+    public static UserIndex getUserIndex(long userId) {
 
         UserIndex retValue = null;
 
@@ -282,7 +330,7 @@ public class UserIndex {
 
         // The Query interface assembles a query
         Query q = new Query("UserIndex");
-        q.addFilter("userId", Query.FilterOperator.EQUAL, l);
+        q.addFilter("userId", Query.FilterOperator.EQUAL, userId);
 
         datastore.prepare(q);
         List<Entity> entities = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());

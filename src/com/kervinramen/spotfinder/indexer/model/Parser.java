@@ -8,7 +8,6 @@ import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.kervinramen.spotfinder.base.model.FacebookUsers;
-import com.kervinramen.spotfinder.helpers.Utilities;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.types.Comment;
@@ -94,6 +93,12 @@ public class Parser {
             for (Comment comment : post.getComments().getData()) {
                 this.updateIndex(post.getFrom(), comment.getFrom(), comment.getCreatedTime());
 
+            }
+        }
+        
+        if (post.getLikes() != null && post.getLikes().getData() != null) {
+            for (NamedFacebookType like : post.getLikes().getData()) {
+                 this.updateIndex(post.getFrom(), like, new Date(0));
             }
         }
 

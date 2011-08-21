@@ -97,6 +97,14 @@ public class FacebookUser {
     public String getUserId() {
         return userId;
     }
+    
+    public int getIntUserId() {
+        return Integer.valueOf(userId);
+    }
+    
+    public long getLongUserId() {
+        return Long.valueOf(userId);
+    }
 
     public void setUsername(String value) {
         this.username = value;
@@ -166,7 +174,7 @@ public class FacebookUser {
     }
 
     public JSONObject getHomeFeedGraph() {
-        return Utilities.getJSON(this.homeFeedGraph.toString());
+        return Utilities.getJSON(this.homeFeedGraph.getValue());
     }
 
     public String getHomeFeedGraphString() {

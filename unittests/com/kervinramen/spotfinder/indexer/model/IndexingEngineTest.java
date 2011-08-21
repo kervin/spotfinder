@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-public class IndexerEngineTest {
+public class IndexingEngineTest {
     private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
     @Before
@@ -23,7 +23,7 @@ public class IndexerEngineTest {
 
     @Test
     public final void testStart() {
-        IndexerEngine indexer = new IndexerEngine();
+        IndexingEngine indexer = new IndexingEngine();
         indexer.start();
     }
 
