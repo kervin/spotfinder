@@ -1,11 +1,15 @@
 package com.kervinramen.spotfinder.indexer.model;
 
+import java.util.ArrayList;
+
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
 
 public class ParserTest {
 
@@ -24,8 +28,15 @@ public class ParserTest {
 
     @Test
     public final void testStart() {
+        ArrayList<UserIndex> indexes = UserIndex.getUserIndexes();
+
+        for (UserIndex userIndex : indexes) {
+            userIndex.setScore(0.0);
+            userIndex.save();
+        }
+
+        
         Parser parser = new Parser();
         parser.start();
     }
-
 }

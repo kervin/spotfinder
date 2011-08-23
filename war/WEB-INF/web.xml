@@ -5,7 +5,6 @@
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-
 	<servlet>
 		<servlet-name>Question</servlet-name>
 		<servlet-class>com.kervinramen.spotfinder.facebookapp.controller.QuestionServlet</servlet-class>
@@ -102,6 +101,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>Parser</servlet-name>
 		<url-pattern>/parse</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TestFinder</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.finder.controller.TestFinderServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TestFinder</servlet-name>
+		<url-pattern>/testfinder</url-pattern>
 	</servlet-mapping>
 
 

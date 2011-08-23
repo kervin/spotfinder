@@ -1,6 +1,7 @@
 package com.kervinramen.spotfinder.finder.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -23,14 +24,15 @@ public class Finder {
         return allSpots.spot;
     }
 
-    /*
-     * public Spots search(FacebookUser user) { return getSpots(); }
-     */
-
     public Spots search() {
-        return search("kervin.ramen", "-20", "57");
+        return search("kervin.ramen", "-20.3", "57.4");
     }
 
+    public Spots search(String username) {
+        return search(username, "-20.3", "57.4");
+    }
+
+    
     /**
      * Returns a context-aware results
      * 
@@ -42,9 +44,10 @@ public class Finder {
     public Spots search(String username, String userLat, String userLng) {
         ArrayList<Spot> nearbySpots = getNearBySpots(Double.valueOf(userLat), Double.valueOf(userLng));
         ArrayList<Spot> rankedSpots = getRankedSpots(username, nearbySpots);
-
+        ArrayList<Spot> orderedSpots = getOrderedSpots(rankedSpots);
+        
         Spots spots = new Spots();
-        spots.setSpots(rankedSpots);
+        spots.setSpots(orderedSpots);
 
         return spots;
     }
@@ -55,6 +58,14 @@ public class Finder {
         return user;
     }
 
+    
+    private ArrayList<Spot> getOrderedSpots(ArrayList<Spot> rankedSpots) { 
+        Collections.sort(rankedSpots);
+        
+        return rankedSpots;
+    }
+    
+    
     /**
      * Gets the updates score
      * 
@@ -83,12 +94,16 @@ public class Finder {
             // For each friend
             for (UserIndex index : indexes) {
 
-                // Get the ratin of the friend for this spot
+                // Get the rating of the friend for this spot
                 Rating rating = Rating.getRating(index.getFriendId(), spot.getSpotId());
 
+                // if user voted
                 if (rating != null) {
-                    // Caculate the totalRank
-                    totalRating = (rating.getrate() * index.getScore());
+                    // Calculate the decayed score
+                    double decayedScore = getDecayedScore(index.getScore(), index.getLastDate());
+
+                    // Caculate the totalRating
+                    totalRating = (rating.getrate() * decayedScore);
                 }
                 count++;
             }

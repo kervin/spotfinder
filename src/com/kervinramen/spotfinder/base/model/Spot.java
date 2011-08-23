@@ -11,86 +11,83 @@ import com.google.appengine.api.datastore.Entity;
 import com.kervinramen.spotfinder.helpers.PMF;
 
 /**
- * This class stores the places that will have ratings on Spotfinder. 
- * Each place will be an instance of this class
+ * This class stores the places that will have ratings on Spotfinder. Each place
+ * will be an instance of this class
  * 
- * This may evolve into a dynamic class in the future where the places 
- * are fetched from a web service.
+ * This may evolve into a dynamic class in the future where the places are
+ * fetched from a web service.
  * 
  * @author Kervin Ramen
  * 
  */
 @PersistenceCapable
-public class Spot {
+public class Spot implements Comparable<Spot> {
 
     @SuppressWarnings("unused")
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
     private String encodedKey;
 
-    
     /**
      * The long part of the key
      */
     @Persistent
-    @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
+    @Extension(vendorName = "datanucleus", key = "gae.pk-id", value = "true")
     private Long spotId;
-    /** 
+    /**
      * Name of the spot
      */
     @Persistent
-	private String name;
+    private String name;
 
-	/**
-	 * Gmaps location
-	 */
+    /**
+     * Gmaps location
+     */
     @Persistent
-	private String location;
+    private String location;
 
-	/**
-	 * Some brief description
-	 */
-	private String description;
-	
-	/** 
-	 * Image of the spot, 
-	 * place in /media/
-	 */
-	@Persistent
-	private String image;
+    /**
+     * Some brief description
+     */
+    private String description;
 
-	/**
-	 * Rank of the spot
-	 */
-	private Double rank;
-	
-    
+    /**
+     * Image of the spot, place in /media/
+     */
+    @Persistent
+    private String image;
+
+    /**
+     * Rank of the spot
+     */
+    private Double rank;
+
     public Long getSpotId() {
         return this.spotId;
     }
-    
+
     public void setSpotId(Long value) {
         this.spotId = value;
     }
 
     public String getName() {
-		return this.name;
-	}
+        return this.name;
+    }
 
-	public void setName(String value) {
-		this.name = value;
-	}
+    public void setName(String value) {
+        this.name = value;
+    }
 
-	public String getLocation() {
-		return this.location;
-	}
+    public String getLocation() {
+        return this.location;
+    }
 
-	public void setLocation(String value) {
-		this.location = value;
-	}
+    public void setLocation(String value) {
+        this.location = value;
+    }
 
-	public void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -105,7 +102,7 @@ public class Spot {
     public String getImage() {
         return image;
     }
-    
+
     public void setRank(Double rank) {
         this.rank = rank;
     }
@@ -116,20 +113,19 @@ public class Spot {
 
     public Spot() {
     }
-    
+
     /**
      * Saves this object to database
      */
     public void save() {
         PersistenceManager pm = PMF.get().getPersistenceManager();
-        
+
         try {
             pm.makePersistent(this);
         } finally {
             pm.close();
         }
     }
-
 
     /**
      * Parses a database entity into a spot
@@ -142,13 +138,22 @@ public class Spot {
         this.description = (String) result.getProperty("description");
         this.location = (String) result.getProperty("location");
         this.image = (String) result.getProperty("image");
-        
+
     }
 
     public void update() {
 
-        
     }
 
+    public int compareTo(Spot arg0) {
+        if (arg0.rank == this.rank) { 
+            return 0;
+        }
+        if (arg0.rank < this.rank) {
+            return -1;
+        } else {
+            return 1;
+        }        
+    }
 
 }

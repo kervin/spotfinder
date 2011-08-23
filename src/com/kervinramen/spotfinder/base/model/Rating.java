@@ -69,7 +69,7 @@ public class Rating {
         this.rate = rate;
     }
 
-    public int getrate() {
+    public Integer getrate() {
         return rate;
     }
     
