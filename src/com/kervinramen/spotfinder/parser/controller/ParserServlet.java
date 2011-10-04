@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.indexer.controller;
+package com.kervinramen.spotfinder.parser.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kervinramen.spotfinder.indexer.model.Parser;
 import com.kervinramen.spotfinder.indexer.model.UserIndex;
+import com.kervinramen.spotfinder.parser.model.Parser;
 
 @SuppressWarnings("serial")
 public class ParserServlet extends HttpServlet {

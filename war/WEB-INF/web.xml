@@ -74,13 +74,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 
     <servlet>
+        <servlet-name>Find</servlet-name>
+        <servlet-class>com.kervinramen.spotfinder.finder.controller.FinderServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Find</servlet-name>
+        <url-pattern>/find</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
         <servlet-name>Finder</servlet-name>
         <servlet-class>com.kervinramen.spotfinder.finder.controller.FinderServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Finder</servlet-name>
-        <url-pattern>/find</url-pattern>
+        <url-pattern>/finder</url-pattern>
     </servlet-mapping>
     
 	<servlet>
@@ -91,6 +101,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>Indexer</servlet-name>
 		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Cron</servlet-name>
+		<servlet-class>com.kervinramen.spotfinder.indexer.controller.CronServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Cron</servlet-name>
+		<url-pattern>/cron</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

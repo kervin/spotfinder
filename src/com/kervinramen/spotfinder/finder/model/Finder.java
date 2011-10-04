@@ -32,7 +32,6 @@ public class Finder {
         return search(username, "-20.3", "57.4");
     }
 
-    
     /**
      * Returns a context-aware results
      * 
@@ -45,7 +44,7 @@ public class Finder {
         ArrayList<Spot> nearbySpots = getNearBySpots(Double.valueOf(userLat), Double.valueOf(userLng));
         ArrayList<Spot> rankedSpots = getRankedSpots(username, nearbySpots);
         ArrayList<Spot> orderedSpots = getOrderedSpots(rankedSpots);
-        
+
         Spots spots = new Spots();
         spots.setSpots(orderedSpots);
 
@@ -58,14 +57,12 @@ public class Finder {
         return user;
     }
 
-    
-    private ArrayList<Spot> getOrderedSpots(ArrayList<Spot> rankedSpots) { 
+    private ArrayList<Spot> getOrderedSpots(ArrayList<Spot> rankedSpots) {
         Collections.sort(rankedSpots);
-        
+
         return rankedSpots;
     }
-    
-    
+
     /**
      * Gets the updates score
      * 
@@ -136,17 +133,19 @@ public class Finder {
 
             String[] spotLocation = spot.getLocation().split(",");
 
-            try {
-                Double spotLat = Double.valueOf(spotLocation[0]);
-                Double spotLng = Double.valueOf(spotLocation[1]);
+            if (spotLocation.length > 1) {
+                try {
+                    Double spotLat = Double.valueOf(spotLocation[0]);
+                    Double spotLng = Double.valueOf(spotLocation[1]);
 
-                if (Utilities.distFrom(userLat, userLng, spotLat, spotLng) < maxDistance) {
-                    nearbySpots.add(spot);
+                    if (Utilities.distFrom(userLat, userLng, spotLat, spotLng) < maxDistance) {
+                        nearbySpots.add(spot);
+                    }
+                } catch (Exception e) {
+                    Logger log = Logger.getLogger("Finder");
+                    log.severe(e.getMessage());
+
                 }
-            } catch (Exception e) {
-                Logger log = Logger.getLogger("Finder");
-                log.severe(e.getStackTrace().toString());
-
             }
         }
 

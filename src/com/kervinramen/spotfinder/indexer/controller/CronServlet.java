@@ -7,22 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kervinramen.spotfinder.base.model.Log;
 import com.kervinramen.spotfinder.indexer.model.IndexingEngine;
-import com.kervinramen.spotfinder.parser.model.Parser;
 
 @SuppressWarnings("serial")
-public class IndexerServlet extends HttpServlet {
+public class CronServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+        int count = Integer.valueOf(req.getParameter("count"));
+        
         String response = "";
-
-        response += logIndexer(1);
-        response += logIndexer(2);
-        response += logIndexer(5);
-        response += logIndexer(10);
-        response += logIndexer(20);
-        // logIndexer(100);
+        response = logIndexer(count);
+        Log.v(response);
         
         resp.getWriter().write(response);
         

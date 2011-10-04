@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.kervinramen.spotfinder.parser.model.Parser;
 
 import org.junit.After;
 import org.junit.Before;

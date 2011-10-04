@@ -1,4 +1,4 @@
-package com.kervinramen.spotfinder.indexer.model;
+package com.kervinramen.spotfinder.parser.model;
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.kervinramen.spotfinder.base.model.FacebookUser;
 import com.kervinramen.spotfinder.base.model.FacebookUsers;
+import com.kervinramen.spotfinder.indexer.model.UserIndex;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.types.Comment;

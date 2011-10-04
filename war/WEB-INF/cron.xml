@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/</url>
+    <url>/cron?count=1</url>
     <description>Re indexing facebook data</description>
-    <schedule>every 10 hours</schedule>
+    <schedule>every wednesday 23:00</schedule>
+    <timezone>Indian/Mauritius</timezone>
+  </cron>
+  <cron>
+    <url>/cron?count=2</url>
+    <description>Re indexing facebook data</description>
+    <schedule>every wednesday 23:05</schedule>
+    <timezone>Indian/Mauritius</timezone>
+  </cron>
+  <cron>
+    <url>/cron?count=5</url>
+    <description>Re indexing facebook data</description>
+    <schedule>every wednesday 23:10</schedule>
+    <timezone>Indian/Mauritius</timezone>
+  </cron>
+  <cron>
+    <url>/cron?count=20</url>
+    <description>Re indexing facebook data</description>
+    <schedule>every thursday 1:26</schedule>
+    <timezone>Indian/Mauritius</timezone>
+  </cron>
+  <cron>
+    <url>/cron?count=20</url>
+    <description>Re indexing facebook data</description>
+    <schedule>every thursday 1:22</schedule>
+    <timezone>Indian/Mauritius</timezone>
+  </cron>
+  <cron>
+    <url>/cron?count=20</url>
+    <description>Re indexing facebook data</description>
+    <schedule>every thursday 1:24</schedule>
     <timezone>Indian/Mauritius</timezone>
   </cron>
 </cronentries>
